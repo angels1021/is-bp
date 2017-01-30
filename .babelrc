@@ -1,0 +1,13 @@
+{
+  "presets": [
+    [
+      "latest"
+    ],
+    "react",
+    "stage-3",
+    "react-hmre"
+  ],
+  "plugins": [
+    "transform-object-rest-spread"
+  ]
+}
