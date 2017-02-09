@@ -1,11 +1,17 @@
 import React from 'react';
 import { render } from 'react-dom';
-import 'style.scss';
+import Root from './routes';
+import './style/style.scss';
 
-const MyApp = () =>(
-  <div>
-    Hello
-  </div>
-);
+render(<Root />, document.getElementById('app'));
 
-render(<MyApp />, document.getElementById('app'));
+if (module.hot) {
+  module.hot.accept('./routes', () => {
+    const NewRoot = require('./routes').default; // eslint-disable-line global-require
+
+    render(
+      <NewRoot />,
+      document.getElementById('root')
+    );
+  });
+}

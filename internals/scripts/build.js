@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import chalk from 'chalk';
 import webpack from 'webpack';
-import config from '../webpack/webpack.prod.config';
+import config from '../webpack/webpack.prod.babel';
 
 console.log(chalk.blue('Generating minified bundle for production via webpack. this will take a moment'));
 

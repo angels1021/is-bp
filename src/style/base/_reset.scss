@@ -1,0 +1,12 @@
+@import "~sanitize.css/sanitize.css";
+
+@mixin ps-base {
+  html { font-size: $global-font-size; }
+  
+  body {
+    font-family: $body-font-family;
+    font-size: $font-size-base;
+    line-height: $global-lineheight;
+    color: $gray-dark;
+  }
+}

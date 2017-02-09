@@ -1,20 +1,24 @@
 import webpack from 'webpack';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import { alias, appSrc } from '../tools/paths';
-import babelQuery from './babel.config';
+import babelOpts from '../config/babel.config';
 
+// base webpack config.
+// development and production config can import the default option,
+// and extend according to these options:
+//
 // options =
 // {
-//    debug: webpack.debug,
 //    stats: webpack.stats,
 //    devtool: webpack.devtool
 //    entry: webpack.entry,
 //    output webpack.output,
-//    babelQuery: webpack.modules.rules -> babel-loader query,
+//    babelOpts: webpack.modules.rules -> use -> babel-loader options,
+//    cssOpts: webpack.modules.rules -> use -> [css-loaders],
 //    plugins: webpack.plugins.
 //    alias: webpack.resolve.alias,
 // }
 
+const lazyRegex = /(routes\/([^\/]+))+\/?index.js$/; // eslint-disable-line no-useless-escape
 
 const webpackSetup = (options) => ({
   stats: options.stats,
@@ -29,34 +33,36 @@ const webpackSetup = (options) => ({
     rules: [
       {
         test: /\.js$/, // Transform all .js files required somewhere with Babel
-        exclude: /node_modules/,
+        exclude: [/node_modules/, lazyRegex],
         use: [
           {
             loader: 'babel-loader',
-            options: Object.assign({}, babelQuery, options.babelQuery)
+            options: Object.assign({}, babelOpts, options.babelOpts)
+          }
+        ]
+      },
+      {
+        test: lazyRegex,
+        exclude: /node_modules/,
+        include: appSrc,
+        use: [
+          {
+            loader: 'bundle-loader',
+            options: {
+              lazy: true,
+              name: 'route.[folder]'
+            }
+          },
+          {
+            loader: 'babel-loader',
+            options: Object.assign({}, babelOpts, options.babelOpts)
           }
         ]
       },
       {
         test: /\.scss/,
         include: appSrc,
-        use: ExtractTextPlugin.extract({
-          fallbackLoader: 'style-loader',
-          loader: [
-            {
-              loader: 'css-loader',
-              options: {
-                sourceMap: true
-              }
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: true
-              }
-            }
-          ]
-        })
+        use: options.cssOpts
       },
       {
         test: /\.svg(\?v=\d+.\d+.\d+)?$/,
@@ -122,9 +128,9 @@ const webpackSetup = (options) => ({
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV)
       }
-    }),
-    new webpack.NamedModulesPlugin()
+    })
   ]),
+  context: appSrc,
   resolve: {
     modules: ['src', 'node_modules'],
     mainFields: [

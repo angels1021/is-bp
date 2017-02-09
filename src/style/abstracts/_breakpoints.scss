@@ -1,0 +1,34 @@
+/// A list of named breakpoints. You can use these with the `breakpoint()` mixin to quickly create media queries.
+/// @type Map
+$breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1440px
+);
+
+/// The largest named breakpoint in which to include print as a media type
+/// @type Keyword
+$print-breakpoint: lg;
+
+$-ps-zero-breakpoint: xs;
+$-zf-zero-breakpoint: $-ps-zero-breakpoint;
+
+/// All of the names in this list will be output as classes in your CSS, like `.small-12`, `.medium-6`, and so on. Each value in this list must also be in the `$breakpoints` map.
+/// @type List
+$breakpoint-classes: (xs, sm, md, lg);
+
+@import "~foundation-sites/scss/util/breakpoint";
+//usage: http://foundation.zurb.com/sites/docs/media-queries.html - sass
+
+@function ps-breakpoint($val: $-ps-zero-breakpoint) {
+  @return breakpoint($val);
+}
+
+@mixin ps-breakpoint($value) {
+  @include breakpoint($value) {
+    @content;
+  }
+}

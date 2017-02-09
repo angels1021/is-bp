@@ -1,0 +1,51 @@
+//colors
+
+// Start with assigning color names to specific hex values.
+$white:  #fff;
+$black:  #000;
+$red:    #ff3c41;
+$orange: #f0ad4e;
+$yellow: #fcd000;
+$green:  #47cf73;
+$blue:   #03a9f4;
+$teal:   #00bcd4;
+$pink:   #ff5b77;
+$purple: #a0f;
+$light-blue: #76daff;
+
+// Create grayscale
+$gray-dark:     #292b2c;
+$gray:          #464a4c;
+$gray-light:    #636c72;
+$gray-lighter:  #eceeef;
+$gray-lightest: #f7f7f9;
+
+// Reassign color vars to semantic color scheme
+$color-primary:   $purple;
+$color-secondary: $blue;
+$color-success:   $green;
+$color-info:      $light-blue;
+$color-warning:   $yellow;
+$color-danger:    $red;
+$color-inverse:   $gray-dark;
+
+$primary-dark: darken($color-primary, 25%);
+$primary-light: lighten($color-primary, 25%);
+$secondary-dark: darken($color-secondary, 25%);
+$secondary-light: lighten($color-secondary, 25%);
+
+//overwrite foundation
+$foundation-palette: (
+  primary: $color-primary,
+  secondary: $color-secondary,
+  success: $color-success,
+  warning: $color-warning,
+  alert: $color-danger,
+);
+
+$light-gray: $gray-light;
+$medium-gray: $gray;
+$dark-gray: $gray-dark;
+
+$body-background: $white;
+$body-font-color: $gray-dark;

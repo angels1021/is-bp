@@ -13,10 +13,12 @@
       "jsx-a11y"
     ],
     "parserOptions": {
-      "ecmaVersion": 6,
+      "ecmaVersion": 8,
       "sourceType": "module",
       "ecmaFeatures": {
-        "jsx": true
+        "jsx": true,
+        "impliedStrict": true,
+        "experimentalObjectRestSpread": true
       }
     },
     "rules": {
@@ -30,8 +32,10 @@
       ],
       "comma-dangle": [
         2,
-        "always-multiline"
+        "never"
       ],
+      "import/extensions": 0,
+      "no-underscore-dangle":0,
       "import/imports-first": 0,
       "import/newline-after-import": 0,
       "import/no-dynamic-require": 0,
@@ -70,12 +74,17 @@
       "react/self-closing-comp": 0,
       "redux-saga/no-yield-in-race": 2,
       "redux-saga/yield-effects": 2,
-      "require-yield": 0
+      "require-yield": 0,
+      "react/prefer-stateless-function": 1,
+      "consistent-return": [
+        2,
+        {"treatUndefinedAsUnspecified": true}
+      ]
     },
     "settings": {
       "import/resolver": {
         "webpack": {
-          "config": "./internals/webpack/webpack.test.config.js"
+          "config": "./internals/webpack/webpack.test.babel.js"
         }
       }
     }

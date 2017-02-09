@@ -6,5 +6,5 @@ export default [
   /src\/client\/ui\/styles\/stylesheets\/scaffolding\.scss/,
   /src\/client\/ui\/styles\/stylesheets\/tooltips\.scss/,
   /src\/client\/ui\/styles\/stylesheets\/typography\.scss/,
-  /node_modules/,
-]
+  /node_modules/
+];

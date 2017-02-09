@@ -3,9 +3,14 @@
  */
 
 import webpack from 'webpack';
+import { alias } from '../tools/paths';
+
+const moduleDirectory = Object.keys(alias).map((path) => `src/${path.replace('$', '')}`);
+
 const modules = [
-  'app',
-  'node_modules'
+  'src',
+  'node_modules',
+  ...moduleDirectory
 ];
 
 export default {
@@ -18,7 +23,7 @@ export default {
       /node_modules(\\|\/)acorn/
     ],
     rules: [
-      { test: /\.json$/, loader: 'json-loader' },
+      // { test: /\.json$/, loader: 'json-loader' } -> not needed in webpack 2
       { test: /\.sass/, loader: 'null-loader' },
 
       // sinon.js--aliased for enzyme--expects/requires global vars.

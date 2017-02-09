@@ -1,12 +1,12 @@
 import expect from 'expect';
 
-describe("index dummy test", () => {
-  it("should pass", () => {
-    //arrange
+describe('index dummy test', () => {
+  it('should pass', () => {
+    // arrange
 
-    //act
+    // act
 
-    //assert
+    // assert
     expect(true).toEqual(true);
   });
 });

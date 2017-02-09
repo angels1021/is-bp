@@ -1,0 +1,15 @@
+$grid-row-width: 100%;
+$grid-column-count: 12;
+// grid gutter in pixels - translated to rem
+$grid-column-gutter: (
+  xs: 10px,
+  md: 20px
+);
+
+$block-grid-max: 8;
+
+@import "~foundation-sites/scss/grid/position";
+@import "~foundation-sites/scss/grid/gutter";
+@import "~foundation-sites/scss/grid/row";
+@import "~foundation-sites/scss/grid/column";
+@import "~foundation-sites/scss/grid/flex-grid";
