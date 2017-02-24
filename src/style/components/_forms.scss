@@ -1,0 +1,53 @@
+* {
+  outline: none;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.ps-select,
+.ps-select__actions .Select-control {
+  @extend select;
+
+  > input {
+    border: none;
+  }
+}
+
+.ps-input {
+  @extend input;
+  @extend [type='text'];
+}
+
+.ps-form-highlight {
+  $input-border-focus: 1px solid scale-color($primary-color, $lightness: -15%);
+
+  #{text-inputs()},
+  textarea {
+    outline: none;
+
+    &:focus {
+      outline: none;
+      border: $input-border-focus;
+    }
+  }
+}
+
+.ps-select__actions {
+  .Select-control {
+    @include ps-flex;
+    @include flex-align(justify, stretch);
+
+    > .Select-clear-zone,
+    > .Select-arrow-zone {
+      flex: 0 1 auto;
+    }
+  }
+
+  .Select-menu-outer {
+    border: $input-border;
+    margin-top: -$form-spacing + rem-calc(1px);
+    padding: $form-spacing / 2;
+  }
+}

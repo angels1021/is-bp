@@ -1,5 +1,5 @@
-@import "~foundation-sites/scss/util/flex";
 //wrap foundation flex mixins for easy refactor
+// check for explorer/safari inconsistent 'flex' key
 
 $-ps-flex-justify: (
   'left': flex-start,
@@ -25,51 +25,59 @@ $-ps-flex-direction: (
 
 $-zf-flex-justify: $-ps-flex-justify;
 $-zf-flex-align: $-ps-flex-align;
-$-pzf-flex-direction: $-ps-flex-direction;
+$-zf-flex-direction: $-ps-flex-direction;
 
 /// Enables flexbox by adding `display: flex` to the element.
 @mixin ps-flex {
   @include flex;
+
+  > * {
+    flex: 1 1 auto;
+  }
 }
 
-/// Horizontally or vertically aligns the items within a flex container.
-///
-/// @param {Keyword} $x [null] - Horizontal alignment to use. Can be
-///    - `left`,
-///    - `right`,
-///    - `center`,
-///    - `justify`,
-///    - `spaced`.
-/// Or, set it to `null` (the default) to not set horizontal alignment.
-/// @param {Keyword} $y [null] - Vertical alignment to use. Can be `top`, `bottom`, `middle`, or `stretch`. Or, set it to `null` (the default) to not set vertical alignment.
-@mixin ps-flex-align($x: null, $y: null) {
-  @include flex-align($x, $y);
+.ps-flex {
+  @include ps-flex;
 }
 
-/// Vertically align a single column within a flex row. Apply this mixin to a flex column.
-///
-/// @param {Keyword} $y [null] - Vertical alignment to use. Can be
-///    - `top`,
-///    - `bottom`,
-///    - `middle`
-///    - `stretch`.
-/// Or, set it to `null` (the default) to not set vertical alignment.
-@mixin ps-flex-align-self($y: null) {
-  @include flex-align-self($y);
+.ps-flex__col {
+  @include ps-flex;
+  @include flex-direction(column);
 }
 
-/// Changes the source order of a flex child. Children with lower numbers appear first in the layout.
-/// @param {Number} $order [0] - Order number to apply.
-@mixin ps-flex-order($order: 0) {
-  @include flex-order($order);
+.ps-flex__center {
+  @include ps-flex;
+  @include flex-align(center, middle);
 }
 
-/// Change flex-direction
-/// @param {Keyword} $direction [row] - Flex direction to use. Can be
-///   - row (default): same as text direction
-///   - row-reverse: opposite to text direction
-///   - column: same as row but top to bottom
-///   - column-reverse: same as row-reverse top to bottom
-@mixin ps-flex-direction($direction: row) {
-  @include flex-direction($direction);
+.ps-flex__center-col {
+  @include ps-flex;
+  @include flex-direction(column);
+  @include flex-align(center, stretch);
+}
+
+.ps-flex__spread {
+  @include ps-flex;
+  @include flex-align(justify, stretch);
+}
+
+.ps-flex__spread-center {
+  @include ps-flex;
+  @include flex-align(justify, middle);
+}
+
+.ps-flex__spread-col {
+  @include ps-flex;
+  @include flex-direction(column);
+  @include flex-align(justify, stretch);
+}
+
+.ps-shrink,
+*.ps-shrink {
+  flex: 0 1 auto;
+}
+
+.ps-grow,
+*.ps-grow {
+  flex: 1 0 auto;
 }

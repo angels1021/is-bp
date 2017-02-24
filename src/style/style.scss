@@ -1,6 +1,4 @@
 @import "common";
-@import "base/reset";
-@import "layout/grid";
+@import "base/base";
 
 @include ps-base;
-@include foundation-flex-grid;

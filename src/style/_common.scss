@@ -1,5 +1,10 @@
-@import "abstracts/utils/utils";
-@import "abstracts/colors";
-@import "abstracts/vars";
+@charset 'utf-8';
+
+@import "abstracts/settings";
+@import "~foundation-sites/scss/foundation";
 @import "abstracts/mixins";
-@import "abstracts/breakpoints";
+
+@import "foundation";
+
+@import "components/card";
+@import "components/forms";

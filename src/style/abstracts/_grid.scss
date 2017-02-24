@@ -1,0 +1,9 @@
+$grid-row-width: 100%;
+$grid-column-count: 12;
+// grid gutter in pixels - translated to rem
+$grid-column-gutter: (
+  small: 10px,
+  medium: 20px
+);
+
+$block-grid-max: 8;

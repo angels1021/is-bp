@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Reducers for login api should return the initial state 1`] = `
+Object {
+  "busy": false,
+  "error": false,
+  "form": Object {
+    "code": "",
+    "location": "/",
+    "password": "",
+    "username": "",
+  },
+  "isLoggedIn": false,
+}
+`;

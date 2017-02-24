@@ -12,7 +12,7 @@ import { isVendor } from '../tools/webpack-helpers';
 export default configWebpack({
   devtool: 'source-map',
   entry: {
-    main: `${appSrc}/index`
+    main: `${appSrc}/app`
   },
   output: {
     path: appBuild,
@@ -20,8 +20,8 @@ export default configWebpack({
     chunkFilename: '[name].[chunkhash].[id].js'
   },
   cssOpts: ExtractTextPlugin.extract({
-    fallbackLoader: 'style-loader',
-    loader: [
+    fallback: 'style-loader',
+    use: [
       {
         loader: 'css-loader',
         options: {

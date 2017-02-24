@@ -15,9 +15,9 @@ export default class MS extends Component {
 }
 
 MS.propTypes = {
-  children: PropTypes.object
+  children: PropTypes.node
 };
 
 MS.defaultProps = {
-  children: PropTypes.object
+  children: PropTypes.node
 };

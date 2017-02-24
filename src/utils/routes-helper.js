@@ -8,51 +8,69 @@ export const isReactComponent = (obj) => (
 
 
 /**
- * @name getComponentByType
- * @description figure out if the component is a lazy loaded module or a react component.
+ * figure out if the component is a lazy loaded module or a react component.
  * meant for use with bundle-loader but can any function
  * that takes module loader function and loads the component
  *
- * example lazy:
+ * @example <lazy>
  * import LazyComponent from './path/to/LazyComponent';
- * component(moduleLoader){
- *  addReduxActions()
+ * component(moduleLoader, injectors){
+ *  injectors.injectReducer()
  *  ...
  *
  *  LazyComponent(moduleLoader)
  * }
  *
- * example import:
- * component(moduleLoader){
+ * @example <import>
+ * component(moduleLoader, injectors){
  *  import('./path/to/Component')
  *    .then((module) => {
- *        addReduxActions()
+ *        injectors.injectReducer()
  *        ...
  *        moduleLoader(module)
  *    })
  * }
  *
  * @param component
- * @return {Object}
+ * @param injectors {Object} store injectors functions to be passed down
+ * @return {Object} Object containing the react component constructor
  */
-const getComponentByType = (component) => (
+const getComponentByType = (component, injectors) => (
   isReactComponent(component)
-    ? { component }
-    : { getComponent: (loc, cb) => component(loadModule(cb)) }
+  ? { component }
+  : { getComponent: (loc, cb) => component(loadModule(cb), injectors) }
 );
 
 /**
- * @name buildRoute
- * @description maps react-router values
+ * construct the final router objects defined in 'buildRoute'
+ *
+ * @param childRoutes {Array} array of routes' 'buildRoute' returns
+ * @param injectors {Object} store injectors functions to be passed down
+ * to all routes.
+ * @return Object containing the childRoutes Array of react router
+ * definition objects as child routes
+ */
+const mapChildRoutes = (childRoutes, injectors) => (
+  (!childRoutes)
+    ? {} :
+    { childRoutes: childRoutes.map((route) => route(injectors)) }
+);
+
+/**
+ * maps react-router values
+ *
  * @param path {String}
  * @param component {Function}
+ * @param childRoutes {Array} array of child routes' 'buildRoute' returns
  * @param other {...} any other settings will be added
- * @return react-router simple-route definition object
+ * @return {Function} -> function that accepts a store injectors
+ *          object to be passed down to any route that might need it.
  */
-const buildRoute = ({ path, component, ...other }) => (
+const buildRoute = ({ path, component, childRoutes, ...other }) => (injectors) => (
   {
     path,
-    ...getComponentByType(component),
+    ...((component) ? getComponentByType(component, injectors) : {}),
+    ...mapChildRoutes(childRoutes, injectors),
     ...other
   }
 );

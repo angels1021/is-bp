@@ -4,24 +4,26 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import PreloadWebpackPlugin from 'preload-webpack-plugin';
 // import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import configWebpack from './webpack.base.babel';
-import { appSrc, appHTML } from '../tools/paths';
+import { appSrc, appHTML, base } from '../tools/paths';
 import { isVendor } from '../tools/webpack-helpers';
 
 export default configWebpack({
   entry: {
     main: [
       'webpack-hot-middleware/client?reload=true',
-      appSrc
+      `${appSrc}/app`
     ]
   },
   output: {
+    publicPath: base,
     filename: '[name].js',
-    hotUpdateChunkFilename: '[name].[id].js',
+    hotUpdateChunkFilename: 'hot/[id].[hash].hot-update.js',
+    hotUpdateMainFilename: 'hot/[hash].hot-update.json',
     chunkFilename: '[name].[id].js'
   },
   cssOpts: ExtractTextPlugin.extract({
-    fallbackLoader: 'style-loader',
-    loader: [
+    fallback: 'style-loader',
+    use: [
       {
         loader: 'css-loader',
         options: {

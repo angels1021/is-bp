@@ -1,0 +1,16 @@
+{
+  "verbose":true,
+  "setupFiles": ["<rootDir>/internals/testing/testsSetup.js"],
+  "moduleNameMapper": {
+    "^utils\\/(.*)$": "<rootDir>/src/utils",
+    "^api\\/(.*)$": "<rootDir>/src/api",
+    "^i18n\\/(.*)$": "<rootDir>/src/i18n",
+    "^common\\/(.*)$": "<rootDir>/src/common",
+    "^modulePaths\\/(.*)$": ["<rootDir>/src"],
+    "\\.(css|scss)$": "identity-obj-proxy"
+  },
+  "transform": {
+    "^.+\\.(js|jsx)?$": "babel-jest",
+    "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mock/stubs/fileName.js"
+  }
+}

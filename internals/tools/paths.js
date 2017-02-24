@@ -7,6 +7,7 @@ function resolveApp(relativePath) {
   return path.resolve(appDirectory, relativePath);
 }
 
+export const base = resolveApp('/');
 export const appSrc = resolveApp('src');
 export const appBuild = resolveApp('dist');
 export const appHTML = resolveApp('src/index.html');
@@ -18,10 +19,10 @@ export const appNodeModules = resolveApp('node_modules');
 /* eslint-disable quote-props */
 
 export const alias = {
+  'api$': resolveApp('src/api'),
   'utils$': resolveApp('src/utils'),
   'i18n$': resolveApp('src/i18n'),
-  'components$': resolveApp('src/components'),
-  'containers$': resolveApp('src/containers')
+  'common$': resolveApp('src/common')
 };
 
 export const prodAlias = {

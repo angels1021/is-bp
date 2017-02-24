@@ -30,14 +30,22 @@ export default {
       // imports-loader allows for global vars to be injected into the module.
       // See https://github.com/webpack/webpack/issues/304
       { test: /sinon(\\|\/)pkg(\\|\/)sinon\.js/,
-        loader: 'imports?define=>false,require=>false'
+        use: {
+          loader: 'imports-loader',
+          options: {
+            define: false,
+            require: false
+          }
+        }
       },
       { test: /\.js$/,
-        loader: 'babel',
-        exclude: [/node_modules/]
+        exclude: [/node_modules/],
+        use: {
+          loader: 'babel-loader'
+        }
       },
       { test: /\.jpe?g$|\.gif$|\.png$|\.svg$/i,
-        loader: 'null-loader'
+        use: { loader: 'null-loader' }
       }
     ]
   },

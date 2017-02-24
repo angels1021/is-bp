@@ -14,38 +14,24 @@ $purple: #a0f;
 $light-blue: #76daff;
 
 // Create grayscale
-$gray-dark:     #292b2c;
-$gray:          #464a4c;
-$gray-light:    #636c72;
-$gray-lighter:  #eceeef;
-$gray-lightest: #f7f7f9;
+$light-gray: #e6e6e6;
+$medium-gray: #cacaca;
+$dark-gray: #7d7d7d;
 
 // Reassign color vars to semantic color scheme
-$color-primary:   $purple;
-$color-secondary: $blue;
-$color-success:   $green;
-$color-info:      $light-blue;
-$color-warning:   $yellow;
-$color-danger:    $red;
-$color-inverse:   $gray-dark;
-
-$primary-dark: darken($color-primary, 25%);
-$primary-light: lighten($color-primary, 25%);
-$secondary-dark: darken($color-secondary, 25%);
-$secondary-light: lighten($color-secondary, 25%);
-
 //overwrite foundation
 $foundation-palette: (
-  primary: $color-primary,
-  secondary: $color-secondary,
-  success: $color-success,
-  warning: $color-warning,
-  alert: $color-danger,
+  primary: $purple,
+  secondary: $blue,
+  success: $green,
+  warning: $yellow,
+  alert: $red,
+  info: $light-blue,
+  text: $dark-gray
 );
 
-$light-gray: $gray-light;
-$medium-gray: $gray;
-$dark-gray: $gray-dark;
+//create $primary-color, $secondary-color
+@include add-foundation-colors;
 
 $body-background: $white;
-$body-font-color: $gray-dark;
+$body-font-color: get-color(text);

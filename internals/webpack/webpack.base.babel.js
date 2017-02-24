@@ -104,10 +104,6 @@ const webpackSetup = (options) => ({
         use: 'file-loader'
       },
       {
-        test: /\.json$/,
-        use: 'json-loader'
-      },
-      {
         test: /\.(mp4|webm)$/,
         use: [
           {

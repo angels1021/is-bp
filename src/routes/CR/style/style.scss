@@ -1,9 +1,9 @@
 @import "../../../style/common";
 
 .cr-container {
-  border: 1px solid $color-primary;
+  border: 1px solid get-color(primary);
   
-  @include breakpoint(md up) {
-    border-color: $color-secondary;
+  @include breakpoint(medium up) {
+    border-color: get-color(secondary);
   }
 }

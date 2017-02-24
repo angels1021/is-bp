@@ -1,0 +1,6 @@
+.ps-auth-page {
+  @include flex-align(center, stretch);
+  @include breakpoint(m-small) {
+    @include flex-align(center, middle);
+  }
+}

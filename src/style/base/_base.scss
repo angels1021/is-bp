@@ -1,0 +1,32 @@
+// foundation's normalize is setting all default styles for us
+@mixin ps-base {
+  html {
+    font-size: $global-font-size;
+    breakpoint(xxlarge up) {
+      font-size: 20px;
+    }
+  }
+
+  body {
+    font-size: $font-size-base;
+  }
+
+  .ps-app {
+    min-height: 100vh;
+    max-width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+
+    @include ps-flex;
+    @include flex-direction(column);
+  }
+
+  .ps-app-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  .ps-page-container {
+    width: 100%;
+  }
+}
