@@ -27,17 +27,20 @@ export const logout = () => (
 export const login = (username, password, code = '') => { // eslint-disable-line no-unused-vars
   if (isLoggedIn()) { return Promise.resolve(true); }
 
-  // return request('/login', {
-  //   type: 'POST',
-  //   data: JSON.stringify({ username, password, code })
-  // })
-  //   .then((response) => {
-  //      // Save token to local storage
-  //       localStorage.setItem('token',response.token);
-  //       return Promise.resolve({response})
-  //   })
-  //   .catch((error) => Promise.resolve({error}));
-  return Promise.resolve({ response: 'token123' });
+  return request('/login', {
+    method: 'POST',
+    body: JSON.stringify({ username, password, code }),
+    headers: new Headers({
+      'Content-Type': 'application/json'
+    })
+  })
+  .then((response) => { // eslint-disable-line arrow-body-style
+    // Save token to local storage
+    // localStorage.setItem('token', response.token);
+    return Promise.resolve({ response });
+  })
+  .catch((error) => Promise.resolve({ error }));
+  // return Promise.resolve({ response: 'token123' });
 };
 
 

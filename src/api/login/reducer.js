@@ -7,18 +7,18 @@
 import { fromJS } from 'immutable';
 import { isLoggedIn } from '../../utils/auth';
 import {
-  CHANGE_FORM,
   SET_AUTH,
-  SENDING_REQUEST,
+  REQUEST_PENDING,
+  REQUEST_SUCCESS,
   REQUEST_ERROR,
   CLEAR_ERROR,
-  cleanForm
+  initialState
 } from './constants';
 
 export const initialStateJS = {
-  form: { ...cleanForm },
+  user: {},
   error: false,
-  busy: false,
+  pending: false,
   isLoggedIn: isLoggedIn()
 };
 
@@ -26,20 +26,32 @@ const loginInitialState = fromJS(initialStateJS);
 
 const loginReducer = (state = loginInitialState, action) => {
   switch (action.type) {
-    case CHANGE_FORM:
-      return state.mergeIn(['form'], action.newFormState);
-
     case SET_AUTH:
       return state.set('isLoggedIn', action.newAuthState);
 
-    case SENDING_REQUEST:
-      return state.set('busy', action.busy);
+    case REQUEST_SUCCESS:
+      return state.mergeIn(['user'], action.user);
+    case REQUEST_PENDING:
+      return state.set('pending', action.pending);
 
     case REQUEST_ERROR:
       return state.set('error', action.error);
 
     case CLEAR_ERROR:
       return state.set('error', false);
+
+    default:
+      return state;
+  }
+};
+
+export const loginFormReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case REQUEST_SUCCESS:
+      state.get('fields').forEach((field) => {
+        field.set('undefined');
+      });
+      return state.mergeIn(['values'], initialState);
 
     default:
       return state;

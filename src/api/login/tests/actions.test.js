@@ -5,18 +5,17 @@
 * */
 /*  */
 import {
-  CHANGE_FORM,
+  REQUEST_SUCCESS,
   SET_AUTH,
-  SENDING_REQUEST,
+  REQUEST_PENDING,
   LOGIN_REQUEST,
   LOGOUT,
   REQUEST_ERROR,
-  CLEAR_ERROR,
-  cleanForm
+  CLEAR_ERROR
 } from '../constants';
 
 import {
-  changeForm,
+  requestSuccess,
   setAuth,
   sendingRequest,
   loginRequest,
@@ -26,43 +25,26 @@ import {
 } from '../actions';
 
 describe('Actions for login api', () => {
-  describe('changeForm', () => {
-    it('should return the correct type and a full newFormState object', () => {
+  describe('requestSuccess', () => {
+    it('should return the correct type and a full user object', () => {
       // arrange
       const expectedResult = {
-        type: CHANGE_FORM,
-        newFormState: {
-          username: 'Tom',
-          password: 'McFly',
-          location: '/cr/1',
-          code: ''
+        type: REQUEST_SUCCESS,
+        user: {
+          id: '1',
+          uuid: '234',
+          role: 'admin',
+          firstName: 'Tom',
+          lastName: 'Fletcher'
         }
       };
       // act
-      const result = changeForm({
-        username: 'Tom',
-        password: 'McFly',
-        location: '/cr/1',
-        code: ''
-      });
-
-      // assert
-      expect(result).toEqual(expectedResult);
-    });
-
-    it('should return the correct type and a partial newFormState object', () => {
-      // arrange
-      const expectedResult = {
-        type: CHANGE_FORM,
-        newFormState: {
-          username: 'Tom',
-          password: 'McFly'
-        }
-      };
-      // act
-      const result = changeForm({
-        username: 'Tom',
-        password: 'McFly'
+      const result = requestSuccess({
+        id: '1',
+        uuid: '234',
+        role: 'admin',
+        firstName: 'Tom',
+        lastName: 'Fletcher'
       });
 
       // assert
@@ -115,11 +97,11 @@ describe('Actions for login api', () => {
   });
 
   describe('sendingRequest', () => {
-    it('should return the correct type and have property busy: true', () => {
+    it('should return the correct type and have property pending: true', () => {
       // arrange
       const expectedResult = {
-        type: SENDING_REQUEST,
-        busy: true
+        type: REQUEST_PENDING,
+        pending: true
       };
       // act
       const result = sendingRequest(true);
@@ -128,12 +110,12 @@ describe('Actions for login api', () => {
       expect(result).toEqual(expectedResult);
     });
 
-    it('should return property busy: true for any truthy value', () => {
+    it('should return property pending: true for any truthy value', () => {
       // act
       const result = sendingRequest('false');
 
       // assert
-      expect(result.busy).toBe(true);
+      expect(result.pending).toBe(true);
     });
   });
 
@@ -158,19 +140,6 @@ describe('Actions for login api', () => {
       });
       // assert
       expect(result).toEqual(expectedResult);
-    });
-
-    it('it data object should always have all of the "login form" properties', () => {
-      // arrange
-      const expectedResult = Object.keys(cleanForm);
-      // act
-      const result = loginRequest({
-        username: 'Tom',
-        password: 'McFly'
-      });
-      const resultKeys = Object.keys(result.data);
-      // assert
-      expect(resultKeys).toEqual(expectedResult);
     });
   });
 

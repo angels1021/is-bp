@@ -2,14 +2,9 @@
 
 exports[`Reducers for login api should return the initial state 1`] = `
 Object {
-  "busy": false,
   "error": false,
-  "form": Object {
-    "code": "",
-    "location": "/",
-    "password": "",
-    "username": "",
-  },
   "isLoggedIn": false,
+  "pending": false,
+  "user": Object {},
 }
 `;

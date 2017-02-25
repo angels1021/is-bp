@@ -4,30 +4,31 @@
 * redux actions to describe login/register actions
 *
 * */
-
 import {
-  CHANGE_FORM,
   SET_AUTH,
-  SENDING_REQUEST,
+  REQUEST_PENDING,
   LOGIN_REQUEST,
   LOGOUT,
   REQUEST_ERROR,
-  CLEAR_ERROR,
-  cleanForm
+  REQUEST_SUCCESS,
+  CLEAR_ERROR
 } from './constants';
 
 /**
- * Sets the form state
- *
- * @param  {object} newFormState          The new state of the form
- * @param  {string} newFormState.username The new text of the username input field of the form
- * @param  {string} newFormState.password The new text of the password input field of the form
- * @param  {string} newFormState.location The location to navigate to after login
- * @param  {string} newFormState.code     The new text of the card code input field of the form (optional)
- */
-export const changeForm = (newFormState) => ({
-  type: CHANGE_FORM,
-  newFormState
+* requestSuccess - set the user received from login
+*
+* @param {type} user Description
+* @param  {string} user.id The user id
+* @param  {string} user.uuid The user's uuid
+* @param  {string} user.role The user's authorized role
+* @param  {string} user.firstName The user's first name
+* @param  {string} user.lastName The user's last name
+*
+* @returns {type} Description
+*/
+export const requestSuccess = (user) => ({
+  type: REQUEST_SUCCESS,
+  user
 });
 
 /**
@@ -45,9 +46,9 @@ export const setAuth = (newAuthState) => ({
  *
  * @param  {boolean} busy True means we're currently sending a request, False means we're idle
  */
-export const sendingRequest = (busy) => ({
-  type: SENDING_REQUEST,
-  busy: Boolean(busy)
+export const sendingRequest = (pending) => ({
+  type: REQUEST_PENDING,
+  pending: Boolean(pending)
 });
 
 /**
@@ -60,7 +61,7 @@ export const sendingRequest = (busy) => ({
  */
 export const loginRequest = (data) => ({
   type: LOGIN_REQUEST,
-  data: { ...cleanForm, ...data }
+  data
 });
 
 /**

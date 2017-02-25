@@ -6,17 +6,16 @@
 /* eslint-disable redux-saga/yield-effects */
 import { push } from 'react-router-redux';
 import { take, call, put, race } from 'redux-saga/effects';
-import { logout, login } from '../../../utils/auth';
+import { logout, login } from '../../../api';
 import {
   sendingRequest,
   setAuth,
   requestError,
-  changeForm
+  requestSuccess
 } from '../actions';
 import {
   LOGIN_REQUEST,
-  LOGOUT,
-  cleanForm
+  LOGOUT
 } from '../constants';
 import {
   callLogout,
@@ -289,7 +288,7 @@ describe('Sagas for login api', () => {
 
     describe('auth successful', () => {
       let localGenerator;
-      const response = { auth: { token: 'ok' } };
+      const response = { auth: { firstName: 'tom', role: 'admin' } };
       it('should dispatch setAuth:true', () => {
         // arrange
         localGenerator = watcherGenerator;
@@ -299,11 +298,11 @@ describe('Sagas for login api', () => {
         expect(putEffect).toEqual(put(setAuth(true)));
       });
 
-      it('should clear the form', () => {
+      it('should pass user data to acation creator', () => {
         // act
-        const dispatchChange = localGenerator.next().value;
+        const dispatchUser = localGenerator.next().value;
         // assert
-        expect(dispatchChange).toEqual(put(changeForm({ ...cleanForm })));
+        expect(dispatchUser).toEqual(put(requestSuccess(response.auth)));
       });
 
       it('should redirect to the requested location', () => {

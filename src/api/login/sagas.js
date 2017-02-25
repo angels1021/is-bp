@@ -2,14 +2,20 @@
 * LoginSagas
 * */
 
+// plan
+// check if has token and user
+// get user
+// set user
+// set token
+// setAuth
+
 import { push } from 'react-router-redux';
 import { take, call, put, fork, race } from 'redux-saga/effects';
-import { sendingRequest, setAuth, requestError, changeForm } from './actions';
-import { logout, login } from '../../utils/auth';
+import { logout, login } from '../../api';
+import { sendingRequest, setAuth, requestError, requestSuccess } from './actions';
 import {
   LOGIN_REQUEST,
-  LOGOUT,
-  cleanForm
+  LOGOUT
 } from './constants';
 
 // logout call
@@ -68,7 +74,7 @@ export function* loginWatcher() {
 
     if (auth) {
       yield put(setAuth(true));
-      yield put(changeForm({ ...cleanForm }));
+      yield put(requestSuccess(auth));
       yield put(push(location));
     } else if (logoutCall) {
       yield put(setAuth(false));

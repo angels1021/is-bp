@@ -6,7 +6,7 @@
 
 import loginReducer from '../reducer';
 import {
-  changeForm,
+  requestSuccess,
   setAuth,
   sendingRequest,
   requestError,
@@ -23,45 +23,29 @@ describe('Reducers for login api', () => {
     expect(state).toMatchSnapshot();
   });
 
-  describe('changeForm', () => {
-    it('should handle the changeForm action correctly', () => {
+  describe('requestSuccess', () => {
+    it('should handle the requestSuccess action correctly', () => {
       // arrange
       const expectedResult = state
-        .mergeIn(['form'], {
-          username: 'Tom',
-          password: 'McFly',
-          location: '/cr/1',
-          code: ''
+        .mergeIn(['user'], {
+          id: '1',
+          uuid: '234',
+          role: 'admin',
+          firstName: 'Tom',
+          lastName: 'Fletcher'
         });
       // act
-      const result = loginReducer(state, changeForm({
-        username: 'Tom',
-        password: 'McFly',
-        location: '/cr/1',
-        code: ''
-      }));
-      // assert
-      expect(expectedResult).toEqual(result);
-    });
-
-    it('should handle the changeForm action correctly with partial data', () => {
-      // arrange
-      const expectedResult = state
-        .mergeIn(['form'], {
-          username: 'Tom',
-          password: '',
-          location: '/',
-          code: ''
-        });
-      // act
-      const result = loginReducer(state, changeForm({
-        username: 'Tom'
+      const result = loginReducer(state, requestSuccess({
+        id: '1',
+        uuid: '234',
+        role: 'admin',
+        firstName: 'Tom',
+        lastName: 'Fletcher'
       }));
       // assert
       expect(expectedResult).toEqual(result);
     });
   });
-
   describe('setAuth', () => {
     it('should handle the setAuth action correctly', () => {
       // arrange
@@ -76,7 +60,7 @@ describe('Reducers for login api', () => {
   describe('sendingRequest', () => {
     it('should handle the sendingRequest action correctly', () => {
       // arrange
-      const expectedResult = state.set('busy', true);
+      const expectedResult = state.set('pending', true);
       // act
       const result = loginReducer(state, sendingRequest(true));
       // assert

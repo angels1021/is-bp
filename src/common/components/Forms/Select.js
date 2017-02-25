@@ -48,13 +48,13 @@ const valueType = PropTypes.oneOfType([
 Select.propTypes = {
   input: PropTypes.object.isRequired,
   meta: PropTypes.object.isRequired,
-  reactSelect: PropTypes.object.isRequired,
+  reactSelect: PropTypes.object,
   options: PropTypes.arrayOf(React.PropTypes.shape({
     value: valueType,
     label: valueType
   })),
   label: valueType,
-  plain: PropTypes.bool
+  plain: valueType
 };
 /* eslint-enable react/require-default-props */
 

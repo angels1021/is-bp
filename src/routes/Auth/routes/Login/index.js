@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+// import { createStructuredSelector } from 'reselect';
 
 import { loginRequest } from 'api/login/actions';
 // global components
@@ -10,8 +10,6 @@ import Flex from 'common/components/grid/Flex';
 // local components
 import LoginForm from './components/LoginFrom';
 
-import { selectField } from './selectors';
-
 class Login extends Component {
 
   constructor(props, context) {
@@ -20,11 +18,11 @@ class Login extends Component {
     this._onSubmit = this._onSubmit.bind(this);
   }
 
-  _onSubmit(form, formProps) {
-    const { valid, touched } = formProps;
-    if (touched && valid) {
-      const name = form.get('username');
-      console.log('form submit', name);
+  _onSubmit(formMap, formDispatch, formProps) {
+    const { valid, pristine } = formProps;
+    if (!pristine && valid) {
+      const formObj = formMap.toObject();
+      this.props.login(formObj);
     }
   }
 
@@ -50,28 +48,29 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-  username: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired,
-  location: PropTypes.string.isRequired,
-  code: PropTypes.string.isRequired
+  login: PropTypes.func.isRequired
 };
 
 Login.defaultProps = {
-  username: '',
-  password: '',
-  location: '/',
-  code: ''
+  login: () => {}
 };
 
-const mapStateToProps = createStructuredSelector({
-  username: selectField('username'),
-  password: selectField('password'),
-  location: selectField('location'),
-  code: selectField('code')
-});
+// Login.propTypes = {
+//   username: PropTypes.string.isRequired,
+//   password: PropTypes.string.isRequired,
+//   location: PropTypes.string.isRequired,
+//   code: PropTypes.string.isRequired
+// };
+//
+// const mapStateToProps = createStructuredSelector({
+//   username: selectField('username'),
+//   password: selectField('password'),
+//   location: selectField('location'),
+//   code: selectField('code')
+// });
 
 const mapDispatchToProps = (dispatch) => ({
   login: (data) => dispatch(loginRequest(data))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);

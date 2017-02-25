@@ -1,4 +1,8 @@
 @import "common";
+@import "psFoundation";
 @import "base/base";
+
+@import "components/card";
+@import "components/forms";
 
 @include ps-base;

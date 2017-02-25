@@ -9,7 +9,7 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form/immutable';
 
 import globalReducer from 'common/containers/App/reducer';
-import loginReducer from 'api/login/reducer';
+import loginReducer, { loginFormReducer } from 'api/login/reducer';
 
 /*
  * routeReducer
@@ -46,7 +46,9 @@ const routeReducer = (state = routeInitialState, action) => {
 const createReducer = (asyncReducers) => combineReducers({
   route: routeReducer,
   global: globalReducer,
-  form: formReducer,
+  form: formReducer.plugin({
+    login: loginFormReducer
+  }),
   auth: loginReducer,
   ...asyncReducers
 });
