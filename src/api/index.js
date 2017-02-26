@@ -6,10 +6,10 @@
 *
 */
 
-import request from '../utils/request';
+import { get } from '../utils/request';
 import * as auth from '../utils/auth';
 
-export const getUser = (id) => request(`/users/${id}`);
+export const getUser = (id) => get(`/users/${id}`);
 
 export const login = ({ username, password, code = '' }) => auth.login(username, password, code);
 

@@ -147,10 +147,11 @@ describe('Actions for login api', () => {
     it('should return the correct type', () => {
       // arrange
       const expectedResult = {
-        type: LOGOUT
+        type: LOGOUT,
+        userId: 1
       };
       // act
-      const result = logoutRequest();
+      const result = logoutRequest(1);
       // assert
       expect(result.type).toBe(expectedResult.type);
     });

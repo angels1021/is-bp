@@ -13,7 +13,7 @@ class CR extends Component {
 
   _logout(e) {
     e.preventDefault();
-    this.props.logout();
+    this.props.logout(this.props.userId);
   }
 
   render() {
@@ -36,17 +36,21 @@ class CR extends Component {
 
 CR.propTypes = {
   children: PropTypes.node,
-  logout: PropTypes.func.isRequired
+  logout: PropTypes.func.isRequired,
+  userId: PropTypes.number
 };
 
 CR.defaultProps = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  userId: null
 };
 
 const mapDispatchToProps = (dispatch) => ({
   logout: () => dispatch(logoutRequest())
 });
 
-// const mapStateToProps = {};
+const mapStateToProps = (state) => ({
+  userId: state.getIn(['auth', 'user', 'id'])
+});
 
-export default connect(null, mapDispatchToProps)(CR);
+export default connect(mapStateToProps, mapDispatchToProps)(CR);

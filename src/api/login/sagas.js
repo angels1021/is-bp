@@ -12,18 +12,18 @@
 import { push } from 'react-router-redux';
 import { take, call, put, fork, race } from 'redux-saga/effects';
 import { logout, login } from '../../api';
-import { sendingRequest, setAuth, requestError, requestSuccess } from './actions';
+import { sendingRequest, setAuth, requestError, loginSuccess, logoutSuccess } from './actions';
 import {
   LOGIN_REQUEST,
   LOGOUT
 } from './constants';
 
 // logout call
-export function* callLogout() {
+export function* callLogout(userId) {
   // set as busy
   yield put(sendingRequest(true));
 
-  const { response, error } = yield call(logout);
+  const { response, error } = yield call(logout, userId);
 
   // notify on error
   if (error) {
@@ -74,11 +74,11 @@ export function* loginWatcher() {
 
     if (auth) {
       yield put(setAuth(true));
-      yield put(requestSuccess(auth));
+      yield put(loginSuccess(auth));
       yield put(push(location));
     } else if (logoutCall) {
       yield put(setAuth(false));
-      yield call(callLogout);
+      yield call(callLogout, logoutCall.userId);
       yield put(push('/login'));
     }
   }
@@ -88,10 +88,12 @@ export function* loginWatcher() {
 export function* logoutWatcher() {
   // this saga is always watching for LOGOUT action
   while (true) { // eslint-disable-line no-constant-condition
-    yield take(LOGOUT);
+    const { userId } = yield take(LOGOUT);
     yield put(setAuth(false));
-    yield call(callLogout);
+    yield put(logoutSuccess(null));
     yield put(push('/login'));
+    // optimistic logout - set all to logged out regardless of call success
+    yield call(callLogout, userId);
   }
 }
 

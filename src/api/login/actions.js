@@ -10,7 +10,8 @@ import {
   LOGIN_REQUEST,
   LOGOUT,
   REQUEST_ERROR,
-  REQUEST_SUCCESS,
+  LOGIN_SUCCESS,
+  LOGOUT_SUCCESS,
   CLEAR_ERROR
 } from './constants';
 
@@ -26,9 +27,14 @@ import {
 *
 * @returns {type} Description
 */
-export const requestSuccess = (user) => ({
-  type: REQUEST_SUCCESS,
+export const loginSuccess = (user) => ({
+  type: LOGIN_SUCCESS,
   user
+});
+
+export const logoutSuccess = () => ({
+  type: LOGOUT_SUCCESS,
+  user: null
 });
 
 /**
@@ -66,9 +72,12 @@ export const loginRequest = (data) => ({
 
 /**
  * Tells the app we want to log out a user
+ *
+ * @param {strin/number} userId - the user to logout;
  */
-export const logoutRequest = () => ({
-  type: LOGOUT
+export const logoutRequest = (userId) => ({
+  type: LOGOUT,
+  userId
 });
 
 

@@ -9,7 +9,8 @@ import { isLoggedIn } from '../../utils/auth';
 import {
   SET_AUTH,
   REQUEST_PENDING,
-  REQUEST_SUCCESS,
+  LOGIN_SUCCESS,
+  LOGOUT_SUCCESS,
   REQUEST_ERROR,
   CLEAR_ERROR,
   initialState
@@ -29,7 +30,8 @@ const loginReducer = (state = loginInitialState, action) => {
     case SET_AUTH:
       return state.set('isLoggedIn', action.newAuthState);
 
-    case REQUEST_SUCCESS:
+    case LOGIN_SUCCESS:
+    case LOGOUT_SUCCESS:
       return state.mergeIn(['user'], action.user);
     case REQUEST_PENDING:
       return state.set('pending', action.pending);
@@ -47,7 +49,7 @@ const loginReducer = (state = loginInitialState, action) => {
 
 export const loginFormReducer = (state = initialState, action) => {
   switch (action.type) {
-    case REQUEST_SUCCESS:
+    case LOGIN_SUCCESS:
       state.get('fields').forEach((field) => {
         field.set('undefined');
       });
