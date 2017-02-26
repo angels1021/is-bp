@@ -1,4 +1,4 @@
-import { post, put } from '../request';
+import { post, put, get } from '../request';
 
 /**
  * Checks if the user already has a login token.
@@ -29,7 +29,18 @@ export const logout = (userId) => (
  * @return {promise}
  */
 export const login = (username, password, code = '') => { // eslint-disable-line no-unused-vars
-  if (isLoggedIn()) { return Promise.resolve(true); }
+  if (isLoggedIn()) {
+    const token = localStorage.getItem('token');
+    return get(`/users?token=${token}`)
+      .then((users) => {
+        const user = users && users[0];
+        if (user) {
+          return { response: user };
+        }
+        localStorage.removeItem('token');
+        return ({ error: new Error('user token was not found') });
+      });
+  }
 
   return post('/login', {
     data: { username, password, code }
@@ -40,9 +51,9 @@ export const login = (username, password, code = '') => { // eslint-disable-line
       return Promise.resolve({ error: false });
     }
     localStorage.setItem('token', response.token);
-    return Promise.resolve({ response });
+    return ({ response });
   })
-  .catch(() => Promise.resolve({ error: false }));
+  .catch(() => ({ error: false }));
   // return Promise.resolve({ response: 'token123' });
 };
 

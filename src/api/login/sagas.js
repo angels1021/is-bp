@@ -47,6 +47,7 @@ export function* callAuthorize({ username, password, code }) {
   // notify on error
   if (error) {
     yield put(requestError(error));
+    yield put(setAuth(false));
   }
 
   // set as idle

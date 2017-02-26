@@ -26,18 +26,6 @@ server.route('/login')
         res.jsonp(user && user.id ? user : false);
       })
       .catch(() => { res.jsonp(false); });
-    // let user = getUserByUsername(username);
-    // if (user && (user.password === password)) {
-    //   const token = new Date().getTime();
-    //   user = setUserToken(user.id, token);
-    //   if (!user) res.jsonp(false);
-    //   const cleanUser = { ...user };
-    //   delete cleanUser.password;
-    //   delete cleanUser.username;
-    //   res.jsonp(cleanUser);
-    // } else {
-    //   res.jsonp(false);
-    // }
   });
 
 server.route('/logout')
@@ -48,31 +36,7 @@ server.route('/logout')
         res.jsonp(user && user.id);
       })
       .catch((error) => { res.jsonp({ error }); });
-    // const user = setUserToken(userId, null);
-    // if (user && user.id) {
-    //   res.jsonp(user.id);
-    // } else {
-    //   res.jsonp(new Error(`user ${userId} not found`));
-    // }
   });
-// server.post('/login', (req, res) => {
-//   const { username, password } = req.body;
-//   getUserByUsername(username)
-//     .then((users) => {
-//       const user = users && users[0];
-//       if (user && (user.password === password)) {
-//         const cleanUser = { ...user };
-//         delete cleanUser.password;
-//         delete cleanUser.username;
-//         res.jsonp(cleanUser);
-//       } else {
-//         res.jsonp(false);
-//       }
-//     })
-//     .catch(() => {
-//       res.jsonp(false);
-//     });
-// });
 
 server.use(router);
 

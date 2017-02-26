@@ -237,6 +237,14 @@ describe('Sagas for login api', () => {
         expect(dispatchError).toEqual(put(requestError(error)));
       });
 
+      it('should dispatch setAuth:false', () => {
+        // act - auth
+        const putAction = localGenerator.next().value;
+
+        // assert
+        expect(putAction).toEqual(put(setAuth(false)));
+      });
+
       it('should dispatch sendingRequest:false', () => {
         // act
         const dispatchIdle = localGenerator.next().value;

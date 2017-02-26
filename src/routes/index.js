@@ -42,11 +42,14 @@
 import buildRoute from 'utils/routes-helper';
 import App from 'common/containers/App';
 import { getAsyncInjectors } from 'utils/asyncInjectors';
+import { authenticatedUsers } from 'utils/auth/access';
 import authRoute from './Auth/route';
 import crRoute from './CR/route';
 import msRoute from './MS/route';
 import sampleRoute from './Sample/route';
 
+// create wrapper component for login protected pages.
+const Authenticated = authenticatedUsers(({ children }) => (children));
 
 const buildAppRoutes = (store) => {
    // create reusable async injectors using getAsyncInjectors factory
@@ -55,10 +58,15 @@ const buildAppRoutes = (store) => {
   return buildRoute({
     component: App,
     childRoutes: [
-      crRoute,
       authRoute,
-      msRoute,
-      sampleRoute
+      sampleRoute,
+      buildRoute({
+        component: Authenticated,
+        childRoutes: [
+          crRoute,
+          msRoute
+        ]
+      })
     ]
   })(injectors);
 };
