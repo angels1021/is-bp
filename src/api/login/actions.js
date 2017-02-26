@@ -34,7 +34,7 @@ export const loginSuccess = (user) => ({
 
 export const logoutSuccess = () => ({
   type: LOGOUT_SUCCESS,
-  user: null
+  user: {}
 });
 
 /**

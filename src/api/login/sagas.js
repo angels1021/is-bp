@@ -78,8 +78,9 @@ export function* loginWatcher() {
       yield put(push(location));
     } else if (logoutCall) {
       yield put(setAuth(false));
-      yield call(callLogout, logoutCall.userId);
+      yield put(logoutSuccess());
       yield put(push('/login'));
+      yield call(callLogout, logoutCall.userId);
     }
   }
 }
@@ -90,7 +91,7 @@ export function* logoutWatcher() {
   while (true) { // eslint-disable-line no-constant-condition
     const { userId } = yield take(LOGOUT);
     yield put(setAuth(false));
-    yield put(logoutSuccess(null));
+    yield put(logoutSuccess());
     yield put(push('/login'));
     // optimistic logout - set all to logged out regardless of call success
     yield call(callLogout, userId);

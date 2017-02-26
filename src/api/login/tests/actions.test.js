@@ -5,7 +5,8 @@
 * */
 /*  */
 import {
-  REQUEST_SUCCESS,
+  LOGIN_SUCCESS,
+  LOGOUT_SUCCESS,
   SET_AUTH,
   REQUEST_PENDING,
   LOGIN_REQUEST,
@@ -15,7 +16,8 @@ import {
 } from '../constants';
 
 import {
-  requestSuccess,
+  loginSuccess,
+  logoutSuccess,
   setAuth,
   sendingRequest,
   loginRequest,
@@ -25,11 +27,26 @@ import {
 } from '../actions';
 
 describe('Actions for login api', () => {
-  describe('requestSuccess', () => {
+  describe('logoutSuccess', () => {
+    it('should return the correct type and a null user property', () => {
+      // arrange
+      const expectedResult = {
+        type: LOGOUT_SUCCESS,
+        user: {}
+      };
+      // act
+      const result = logoutSuccess();
+
+      // assert
+      expect(result).toEqual(expectedResult);
+    });
+  });
+
+  describe('loginSuccess', () => {
     it('should return the correct type and a full user object', () => {
       // arrange
       const expectedResult = {
-        type: REQUEST_SUCCESS,
+        type: LOGIN_SUCCESS,
         user: {
           id: '1',
           uuid: '234',
@@ -39,7 +56,7 @@ describe('Actions for login api', () => {
         }
       };
       // act
-      const result = requestSuccess({
+      const result = loginSuccess({
         id: '1',
         uuid: '234',
         role: 'admin',

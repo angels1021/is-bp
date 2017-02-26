@@ -11,7 +11,8 @@ import {
   sendingRequest,
   setAuth,
   requestError,
-  requestSuccess
+  logoutSuccess,
+  loginSuccess
 } from '../actions';
 import {
   LOGIN_REQUEST,
@@ -28,9 +29,10 @@ describe('Sagas for login api', () => {
   describe('callLogout saga', () => {
     // since this saga has a try/catch block we need to test both cases
     let logoutGenerator;
+    const userID = 1;
     beforeEach(() => {
       // arrange
-      logoutGenerator = callLogout();
+      logoutGenerator = callLogout(userID);
 
       // act
       const dispathBusy = logoutGenerator.next().value;
@@ -42,7 +44,7 @@ describe('Sagas for login api', () => {
       const actionLogout = logoutGenerator.next().value;
 
       // assert
-      expect(actionLogout).toEqual(call(logout));
+      expect(actionLogout).toEqual(call(logout, userID));
     });
 
     describe('successful', () => {
@@ -115,6 +117,7 @@ describe('Sagas for login api', () => {
   describe('logoutWatcher saga', () => {
     // arrange
     const watcherGenerator = logoutWatcher();
+    const userId = 1;
     let takeEffect;
     it('should take LOGOUT action', () => {
       // act - watch
@@ -126,18 +129,18 @@ describe('Sagas for login api', () => {
 
     it('should dispatch setAuth:false', () => {
       // act - auth
-      const putAction = watcherGenerator.next().value;
+      const putAction = watcherGenerator.next({ userId }).value;
 
       // assert
       expect(putAction).toEqual(put(setAuth(false)));
     });
 
-    it('should call callLogout saga', () => {
+    it('should dispatch the logoutSuccess action', () => {
       // act - call callLogout saga
       const callEffect = watcherGenerator.next().value;
 
       // assert
-      expect(callEffect).toEqual(call(callLogout));
+      expect(callEffect).toEqual(put(logoutSuccess()));
     });
 
     it('should navigate to "/login"', () => {
@@ -146,6 +149,14 @@ describe('Sagas for login api', () => {
 
       // assert
       expect(pushAction).toEqual(put(push('/login')));
+    });
+
+    it('should call callLogout saga', () => {
+      // act - call callLogout saga
+      const callEffect = watcherGenerator.next().value;
+
+      // assert
+      expect(callEffect).toEqual(call(callLogout, userId));
     });
 
     it('should loop back to take LOGOUT action', () => {
@@ -299,10 +310,12 @@ describe('Sagas for login api', () => {
       });
 
       it('should pass user data to acation creator', () => {
+        // assert
+        const { auth } = response;
         // act
         const dispatchUser = localGenerator.next().value;
         // assert
-        expect(dispatchUser).toEqual(put(requestSuccess(response.auth)));
+        expect(dispatchUser).toEqual(put(loginSuccess(auth)));
       });
 
       it('should redirect to the requested location', () => {
@@ -332,7 +345,8 @@ describe('Sagas for login api', () => {
 
     describe('logout was called', () => {
       let localGenerator;
-      const response = { logoutCall: { action: LOGOUT } };
+      const response = { logoutCall: { action: LOGOUT, userId: 1 }, auth: false };
+
       it('should dispatch setAuth:false', () => {
         // arrange
         localGenerator = watcherGenerator;
@@ -342,11 +356,11 @@ describe('Sagas for login api', () => {
         expect(putEffect).toEqual(put(setAuth(false)));
       });
 
-      it('should start callLogoutSaga', () => {
-        // act
-        const sagaLogout = localGenerator.next().value;
+      it('should dispatch the logoutSuccess action', () => {
+        // act - call callLogout saga
+        const putSuccessEffect = localGenerator.next().value;
         // assert
-        expect(sagaLogout).toEqual(call(callLogout));
+        expect(putSuccessEffect).toEqual(put(logoutSuccess()));
       });
 
       it('should redirect to the login page', () => {
@@ -354,6 +368,15 @@ describe('Sagas for login api', () => {
         const dispatchPush = localGenerator.next().value;
         // assert
         expect(dispatchPush).toEqual(put(push('/login')));
+      });
+
+      it('should start callLogoutSaga', () => {
+        // arrange
+        const { userId } = response.logoutCall;
+        // act
+        const sagaLogout = localGenerator.next().value;
+        // assert
+        expect(sagaLogout).toEqual(call(callLogout, userId));
       });
 
       it('should loop back to take(LOGIN_REQUEST)', () => {

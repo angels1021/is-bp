@@ -6,7 +6,8 @@
 
 import loginReducer from '../reducer';
 import {
-  requestSuccess,
+  loginSuccess,
+  logoutSuccess,
   setAuth,
   sendingRequest,
   requestError,
@@ -23,8 +24,8 @@ describe('Reducers for login api', () => {
     expect(state).toMatchSnapshot();
   });
 
-  describe('requestSuccess', () => {
-    it('should handle the requestSuccess action correctly', () => {
+  describe('loginSuccess', () => {
+    it('should handle the set the user object', () => {
       // arrange
       const expectedResult = state
         .mergeIn(['user'], {
@@ -35,7 +36,7 @@ describe('Reducers for login api', () => {
           lastName: 'Fletcher'
         });
       // act
-      const result = loginReducer(state, requestSuccess({
+      const result = loginReducer(state, loginSuccess({
         id: '1',
         uuid: '234',
         role: 'admin',
@@ -46,6 +47,19 @@ describe('Reducers for login api', () => {
       expect(expectedResult).toEqual(result);
     });
   });
+
+  describe('logoutSuccess', () => {
+    it('should reset the user object to {}', () => {
+      // arrange
+      const expectedResult = state
+        .mergeIn(['user'], {});
+      // act
+      const result = loginReducer(state, logoutSuccess());
+      // assert
+      expect(expectedResult).toEqual(result);
+    });
+  });
+
   describe('setAuth', () => {
     it('should handle the setAuth action correctly', () => {
       // arrange
