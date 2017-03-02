@@ -1,0 +1,13 @@
+{
+  "app": {
+    "common": {
+      "app.common.submit": "submit"
+    }
+  },
+  "auth": {
+    "login": {
+      "auth.login.title": "login",
+      "auth.login.forgotPassword": "forgot my password"
+    }
+  }
+}

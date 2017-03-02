@@ -1,0 +1,27 @@
+[
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "submit",
+        "description": "label for submit buttons",
+        "id": "common.submit"
+      }
+    ],
+    "fileName": "src/common/translations/common.messages.js"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "login",
+        "description": "title for login page",
+        "id": "auth.login.title"
+      },
+      {
+        "defaultMessage": "forgot my password",
+        "description": "label for password recovery link",
+        "id": "auth.login.forgotPassword"
+      }
+    ],
+    "fileName": "src/routes/Auth/routes/Login/translations/login.messages.js"
+  }
+]

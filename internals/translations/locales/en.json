@@ -1,0 +1,5 @@
+{
+  "app.common.submit": "submit",
+  "auth.login.forgotPassword": "forgot my password",
+  "auth.login.title": "login"
+}
