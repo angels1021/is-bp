@@ -50,29 +50,18 @@ export default function LanguageReducerFactory(
 plan
 auth
 reducer:
-  locale,
-  messages: {
-    page1: {},
-    page2: {}
-    ....
-  }
+  locale
 
 cr
 reducer:
-  locale,
-  messages: {
-    ....
-  }
+  locale
 
 ms
 reducer:
-  locale,
-  messages: {
-    ...
-  }
+  locale
 
 
-//globally?
+//messages globally
 messages
   en
     app
