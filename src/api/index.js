@@ -6,14 +6,27 @@
 *
 */
 
-import { get } from '../utils/request';
-import * as auth from '../utils/auth';
+import { get, post } from '../utils/request';
 
+// user
 export const getUser = (id) => get(`/users/${id}`);
 
-export const login = ({ username, password, code = '' }) => auth.login(username, password, code);
+export const getUsers = (queryParams) => get('/users', { data: queryParams });
 
-export const logout = (id) => auth.logout(id);
+export const userLlogin = ({ username, password, code = '' }) => (
+  post('/login', { data: { username, password, code } })
+);
+
+export const userLogout = (userId) => post('/logout', {
+  data: { userId }
+});
+
+export const userRegister = ({ username, password }) => post('/register', {
+  data: { username, password }
+});
+
+// locale
+export const getLocale = (locale, modulePath) => get(`/locale/${locale}`, { data: { modulePath } });
 
 /*
 * store

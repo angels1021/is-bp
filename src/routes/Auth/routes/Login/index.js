@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 // import { createStructuredSelector } from 'reselect';
 
+// lang
+import { FormattedMessage } from 'react-intl';
 import { loginRequest } from 'api/login/actions';
 // global components
 import Row from 'common/components/grid/Row';
@@ -9,6 +11,8 @@ import Column from 'common/components/grid/Column';
 import Flex from 'common/components/grid/Flex';
 // local components
 import LoginForm from './components/LoginFrom';
+// local lang
+import messages from './translations/login.messages';
 
 class Login extends Component {
 
@@ -16,6 +20,11 @@ class Login extends Component {
     super(props, context);
 
     this._onSubmit = this._onSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    console.log('props', this.props);
+    console.log('context', this.context);
   }
 
   _onSubmit(formMap, formDispatch, formProps) {
@@ -37,7 +46,9 @@ class Login extends Component {
         ps-login-card card`}
       >
         <Flex align="center" className="card-section ps-shrink" >
-          <h1 className="text-center" >Login</h1>
+          <h1 className="text-center" >
+            <FormattedMessage {...messages.title} />
+          </h1>
         </Flex>
         <Row className="card-section collapse" >
           <LoginForm onSubmit={this._onSubmit} />

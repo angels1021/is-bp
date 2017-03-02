@@ -61,9 +61,10 @@ export default request;
 const toQueryString = (params) => Object.keys(params)
   .reduce((query, key) => {
     const val = params[key];
-    if (!isUndefined(val)) return query;
+    if (isUndefined(val)) return query;
     const prefix = query ? '&' : '';
-    return `${query}${prefix}${encodeURIComponent(key)}=${encodeURIComponent(val)}`;
+    const stringVal = isArray(val) || isPlainObject(val) ? JSON.stringify(val) : val;
+    return `${query}${prefix}${encodeURIComponent(key)}=${encodeURIComponent(stringVal)}`;
   }, '');
 
 
@@ -148,6 +149,6 @@ export const del = (url, options) => request(url, nornalizeData(options, 'DELETE
 export const get = (url, options = false) => {
   if (!options) return request(url);
   const { body, ...rest } = nornalizeData(options, 'GET', true);
-  const withQuery = body ? `url?${body}` : url;
+  const withQuery = body ? `${url}?${body}` : url;
   return request(withQuery, { ...rest });
 };

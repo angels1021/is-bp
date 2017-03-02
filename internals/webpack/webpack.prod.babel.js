@@ -19,6 +19,7 @@ export default configWebpack({
     filename: '[name].[chunkhash].js',
     chunkFilename: '[name].[chunkhash].[id].js'
   },
+  translations: { filter: 'id' },
   cssOpts: ExtractTextPlugin.extract({
     fallback: 'style-loader',
     use: [

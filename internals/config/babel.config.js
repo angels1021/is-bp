@@ -28,11 +28,6 @@ export default {
         'transform-react-constant-elements',
         'transform-react-inline-elements'
       ]
-    },
-    test: {
-      plugins: [
-        'dynamic-import-node'
-      ]
     }
   }
 };

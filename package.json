@@ -21,6 +21,7 @@
     "prestart-mockapi": "babel-node internals/mock/generateMockData",
     "start-mockapi": "babel-node internals/mock/jsonServer --watch",
     "remove-dist": "node_modules/.bin/rimraf ./dist",
+    "manage:translations": "babel-node internals/scripts/manageTranslations",
     "prebuild": "npm-run-all clean:dist test lint",
     "build": "cross-env NODE_ENV='production' babel-node internals/scripts/build.js"
   },
@@ -53,6 +54,7 @@
     "babel-core": "^6.22.1",
     "babel-eslint": "^7.1.1",
     "babel-loader": "^6.2.10",
+    "babel-plugin-module-resolver": "^2.5.0",
     "babel-plugin-react-intl": "^2.3.1",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-object-rest-spread": "^6.22.0",
@@ -111,6 +113,7 @@
     "preload-webpack-plugin": "^1.1.0",
     "psi": "^2.0.4",
     "purifycss-webpack": "^0.4.2",
+    "react-intl-translations-manager": "^4.0.1",
     "rimraf": "^2.5.4",
     "sass-loader": "^4.1.1",
     "sinon": "^1.17.7",

@@ -1,4 +1,7 @@
+import fs from 'fs';
+import { get as getIn } from 'lodash';
 import { get, put } from './request';
+import appModules from '../../translations/extractedMessages/extractedModules.json';
 
 export const getUserById = (id) => get(`/users/${id}`);
 
@@ -18,3 +21,30 @@ export const changeUser = (id, data) => (
 );
 
 export const setUserToken = (userId, token) => changeUser(userId, { token });
+
+export const getLocale = (locale, { module, page }) => new Promise((resolve, reject) => {
+  const pageMessages = getIn(appModules, [module, page], false);
+  if (!pageMessages) {
+    reject(new Error(`module path ${module} -> ${page} not found`));
+    return;
+  }
+  fs.readFile(
+      `internals/translations/locales/${locale}.json`,
+      (error, value) => {
+        if (error) {
+          reject(new Error('locale not found'));
+        } else {
+          const json = JSON.parse(value);
+          const ids = Object.keys(pageMessages);
+          const messages = Object.keys(json)
+            .filter((item) => ids.includes(item))
+            .reduce((collection, id) => {
+              collection[id] = json[id]; // eslint-disable-line no-param-reassign
+              return collection;
+            }, {});
+          resolve([{ module, page, messages }]);
+        }
+      }
+    );
+});
+

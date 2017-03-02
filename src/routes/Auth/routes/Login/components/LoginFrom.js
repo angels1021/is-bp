@@ -1,11 +1,13 @@
 import React, { PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form/immutable';
+import { FormattedMessage } from 'react-intl';
 
 import Input from 'common/components/Forms/Input';
 import Select from 'common/components/Forms/Select';
 import Row from 'common/components/grid/Row';
 import Flex from 'common/components/grid/Flex';
 import { initialState as initialValues } from 'api/login/constants';
+import commonMessages from 'common/containers/App/translations/common.messages';
 
 const optionValue = (option) => option && option.value;
 
@@ -49,7 +51,7 @@ const LoginForm = ({ onSubmit, handleSubmit }) => (
       <Flex align="center middle" className=" column shrink ps-flex">
         <button className="button primary">
           <span>
-            Submit
+            <FormattedMessage {...commonMessages.submit} />
           </span>
         </button>
       </Flex>

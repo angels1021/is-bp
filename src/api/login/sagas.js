@@ -11,7 +11,7 @@
 
 import { push } from 'react-router-redux';
 import { take, call, put, fork, race } from 'redux-saga/effects';
-import { logout, login } from '../../api';
+import { logout, login } from 'utils/auth';
 import { sendingRequest, setAuth, requestError, loginSuccess, logoutSuccess } from './actions';
 import {
   LOGIN_REQUEST,

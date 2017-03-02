@@ -1,7 +1,7 @@
 import jsonServer from 'json-server';
 import path from 'path';
 import { error as logError, success } from '../tools/logger';
-import { setUserToken, getUserByUsername } from './api';
+import { setUserToken, getUserByUsername, getLocale } from './api';
 
 const server = jsonServer.create();
 const router = jsonServer.router(path.join(__dirname, './api/db.json'));
@@ -36,6 +36,20 @@ server.route('/logout')
         res.jsonp(user && user.id);
       })
       .catch((error) => { res.jsonp({ error }); });
+  });
+
+server.route('/locale/:localeKey')
+  .get((req, res) => {
+    const { modulePath } = req.query;
+    const { localeKey } = req.params;
+    try {
+      const getModule = JSON.parse(modulePath);
+      getLocale(localeKey, getModule)
+        .then((found) => { res.jsonp(found); })
+        .catch((error) => { res.jsonp({ error }); });
+    } catch (error) {
+      res.jsonp({ error, message: 'try/catch error' });
+    }
   });
 
 server.use(router);

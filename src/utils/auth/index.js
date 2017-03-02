@@ -1,4 +1,4 @@
-import { post, put, get } from '../request';
+import { userLlogin, userLogout, userRegister, getUsers } from '../../api';
 
 /**
  * Checks if the user already has a login token.
@@ -9,9 +9,7 @@ export const isLoggedIn = () => !!(localStorage.getItem('token'));
  * Logs the current user out
  */
 export const logout = (userId) => (
-  post('/logout', {
-    data: { userId }
-  })
+  userLogout(userId)
     .then((response) => {
       localStorage.removeItem('token', response.token);
       return Promise.resolve({ response });
@@ -28,10 +26,10 @@ export const logout = (userId) => (
  *
  * @return {promise}
  */
-export const login = (username, password, code = '') => { // eslint-disable-line no-unused-vars
+export const login = ({ username, password, code = '' }) => { // eslint-disable-line no-unused-vars
   if (isLoggedIn()) {
     const token = localStorage.getItem('token');
-    return get(`/users?token=${token}`)
+    return getUsers({ token })
       .then((users) => {
         const user = users && users[0];
         if (user) {
@@ -42,26 +40,21 @@ export const login = (username, password, code = '') => { // eslint-disable-line
       });
   }
 
-  return post('/login', {
-    data: { username, password, code }
-  })
-  .then((response) => { // eslint-disable-line arrow-body-style
+  return userLlogin({ username, password, code })
+    .then((response) => {
     // Save token to local storage
-    if (!response) {
-      return Promise.resolve({ error: false });
-    }
-    localStorage.setItem('token', response.token);
-    return ({ response });
-  })
-  .catch(() => ({ error: false }));
-  // return Promise.resolve({ response: 'token123' });
+      if (!response) {
+        return Promise.resolve({ error: false });
+      }
+      localStorage.setItem('token', response.token);
+      return ({ response });
+    })
+    .catch(() => ({ error: false }));
 };
 
 
 export const register = (username, password) => (
-  put('/register', {
-    data: { username, password }
-  })
+  userRegister({ username, password })
     .then(() => login(username, password))
     .catch((error) => Promise.resolve({ error }))
 );

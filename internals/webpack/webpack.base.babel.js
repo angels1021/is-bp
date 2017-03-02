@@ -1,4 +1,5 @@
 import webpack from 'webpack';
+import path from 'path';
 import { alias, appSrc } from '../tools/paths';
 import babelOpts from '../config/babel.config';
 
@@ -56,6 +57,17 @@ const webpackSetup = (options) => ({
           {
             loader: 'babel-loader',
             options: Object.assign({}, babelOpts, options.babelOpts)
+          }
+        ]
+      },
+      {
+        test: /\.messages.js$/,
+        use: [
+          {
+            loader: 'messages-loader',
+            options: Object.assign({
+              filter: 'all'
+            }, options.translations)
           }
         ]
       },
@@ -135,6 +147,11 @@ const webpackSetup = (options) => ({
       'main'
     ],
     alias: Object.assign({}, alias, options.alias)
+  },
+  resolveLoader: {
+    alias: {
+      'messages-loader': path.join(__dirname, './loaders/messages-loader')
+    }
   }
 });
 

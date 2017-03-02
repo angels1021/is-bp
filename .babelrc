@@ -9,5 +9,21 @@
   ],
   "plugins": [
     "transform-object-rest-spread"
-  ]
+  ],
+  "env": {
+    "test": {
+      "plugins": [
+        "dynamic-import-node",
+        ["module-resolver", {
+          "root": ["./src"],
+          "alias": {
+            "utils": "./utils",
+            "api": "./api",
+            "i18n": "./i18n",
+            "common": "./common"
+          }
+        }]
+      ]
+    }
+  }
 }

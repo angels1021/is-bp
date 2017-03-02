@@ -6,7 +6,7 @@
 /* eslint-disable redux-saga/yield-effects */
 import { push } from 'react-router-redux';
 import { take, call, put, race } from 'redux-saga/effects';
-import { logout, login } from '../../../api';
+import { logout, login } from 'utils/auth';
 import {
   sendingRequest,
   setAuth,

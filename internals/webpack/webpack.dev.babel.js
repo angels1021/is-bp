@@ -21,6 +21,7 @@ export default configWebpack({
     hotUpdateMainFilename: 'hot/[hash].hot-update.json',
     chunkFilename: '[name].[id].js'
   },
+  translations: { filter: 'noDescription' },
   cssOpts: ExtractTextPlugin.extract({
     fallback: 'style-loader',
     use: [
