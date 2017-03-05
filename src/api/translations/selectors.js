@@ -1,41 +1,52 @@
 /**
  * Selectors for the messages reducer.
  */
-
 import { createSelector } from 'reselect';
+import { memoize } from 'lodash-es'
 
-const selectTranslations = (state) => state.get('translations');
+/**
+ * plain selectors, single memoize cache
+ */
+export const selectTranslations = () => memoize((state) => state.get('translations'));
+const selectModuleName = () => (_, props) => props.module;
+const selectLocale = () => (_, props) => props.locale;
 
-export const selectMessages = createSelector(
-  selectTranslations,
+export const selectMessages = () => createSelector(
+  selectTranslations(),
   (translations) => translations.get('messages')
 );
 
-export const selectLanguage = (locale) => createSelector(
-  selectMessages(),
-  (messages) => messages.get(locale)
-);
-
-export const selectModule = (locale, module) => createSelector(
-  selectLanguage(locale),
-  (modules) => modules.get(module)
-);
-
-export const selectPage = (locale, module, page) => createSelector(
-  selectModule(locale, module),
-  (pages) => pages.get(page)
-);
-
-const selectRequest = createSelector(
-  selectTranslations,
+export const selectRequest = () => createSelector(
+  selectTranslations(),
   (translations) => translations.get('pending')
 );
 
-export const selectNewRequest = createSelector(
-  [selectMessages, selectRequest],
-  (messages, payload) => {
+export const selectLocaleTranslations = () => createSelector(
+  selectMessages(),
+  selectLocale(),
+  (translations, locale) => translations.get(locale)
+);
+
+/**
+ * messages by module Selector
+ */
+export const selectModuleMessages = () => createSelector(
+  selectLocaleTranslations(),
+  selectModuleName(),
+  (modules, module) => {
+    const found = (modules && modules.has(module) ? modules.get(module).flatten(0).toJS() : {});
+    const common = (modules && modules.has('app') ? modules.get('app').flatten(0).toJS() : {});
+    return { ...common, ...found };
+  }
+);
+
+export const selectNewRequest = () => createSelector(
+  selectRequest(),
+  selectMessages(),
+  (payload, messages) => {
     if (!payload) return [];
     const { locale, request } = payload;
+    if (!locale || !request) return [];
     return request.filter((req) => {
       const { module, page } = req;
       return !messages.getIn([locale, module, page]);

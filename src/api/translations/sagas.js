@@ -10,7 +10,7 @@ import {
 } from './constants';
 
 // act
-export function* getMessages({ locale, request }) {
+export function* getMessages(locale, request) {
   // call api
   const { response, error } = yield call(getLocale, locale, request);
 
@@ -32,10 +32,10 @@ export function* callGetMassages(payload) {
   const newRequests = yield select(selectNewRequest);
   if (newRequests && newRequests.length) {
     // if one or more pages don't exist call saga
-    yield call(getMessages, payload);
+    yield call(getMessages, payload.locale, newRequests);
   } else {
     // translations already exist,  complete saga.
-    yield put(messageSuccess, []);
+    yield put(messageSuccess([]));
   }
 }
 
