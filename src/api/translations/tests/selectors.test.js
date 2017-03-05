@@ -203,7 +203,6 @@ describe('API translations selectors', () => {
       // assert - requested module changed
       expect(selector.recomputations()).toBe(3);
     });
-
   });
 
   describe('selectNewRequest', () => {

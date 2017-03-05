@@ -2,7 +2,7 @@
  * Selectors for the messages reducer.
  */
 import { createSelector } from 'reselect';
-import { memoize } from 'lodash-es'
+import { memoize } from 'lodash-es';
 
 /**
  * plain selectors, single memoize cache
