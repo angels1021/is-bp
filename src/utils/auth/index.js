@@ -58,6 +58,6 @@ export const login = ({ username, password, code = '' }) => { // eslint-disable-
 
 export const register = (username, password) => (
   userRegister({ username, password })
-    .then(({ response }) => response ? login(username, password) : res)
+    .then(({ response, error }) => (response ? login(username, password) : error))
     .catch((error) => Promise.resolve({ error }))
 );

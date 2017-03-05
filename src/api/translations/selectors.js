@@ -18,7 +18,7 @@ export const selectTranslations = () => createSelector(
 
 export const selectMessages = () => createSelector(
   selectTranslations(),
-  (translations) => translations ? translations.get('messages') : {}
+  (translations) => (translations ? translations.get('messages') : {})
 );
 
 export const selectRequest = () => createSelector(

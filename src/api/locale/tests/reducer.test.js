@@ -28,7 +28,7 @@ describe('API locale reducer', () => {
   it('should return the initial state if moduleId doesn\'t match', () => {
     const result = localeReducer(state, {
       type: CHANGE_LOCALE_REQUEST,
-      payload: { locale: request, moduleId: 'someOtherModule' },
+      payload: { locale: request, moduleId: 'someOtherModule' }
     });
 
     expect(result).toMatchSnapshot();
