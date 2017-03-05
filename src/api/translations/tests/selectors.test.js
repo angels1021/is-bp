@@ -19,11 +19,13 @@ describe('API translations selectors', () => {
 
   beforeEach(() => {
     mockState = fromJS({
-      translations: {
-        error: false,
-        pending: false,
-        messages: {
-          en: {}
+      global: {
+        translations: {
+          error: false,
+          pending: false,
+          messages: {
+            en: {}
+          }
         }
       }
     });

@@ -13,7 +13,7 @@ import {
 export function* getMessages(locale, request) {
   // call api
   const { response, error } = yield call(getLocale, locale, request);
-
+  console.log('getMessages', response, error);
   if (error) {
     yield put(messagesError(error));
     return false;
@@ -27,9 +27,10 @@ export function* getMessages(locale, request) {
 }
 
 // caller
-export function* callGetMassages(payload) {
+export function* callGetMassages(action) {
   // check exists
-  const newRequests = yield select(selectNewRequest);
+  const { payload } = action;
+  const newRequests = yield select(selectNewRequest());
   if (newRequests && newRequests.length) {
     // if one or more pages don't exist call saga
     yield call(getMessages, payload.locale, newRequests);

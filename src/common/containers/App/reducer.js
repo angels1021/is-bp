@@ -11,12 +11,17 @@
  */
 
 import { fromJS } from 'immutable';
+import { combineReducers } from 'redux-immutable';
+import translationsReducer from 'api/translations/reducer';
 
 const initialState = fromJS({
   loading: false,
   error: false
 });
 
-const appReducer = (state = initialState, action) => state; // eslint-disable-line no-unused-vars
+const asyncReducer = (state = initialState, action) => state; // eslint-disable-line no-unused-vars
 
-export default appReducer;
+export default combineReducers({
+  async: asyncReducer,
+  translations: translationsReducer
+});

@@ -3,7 +3,7 @@
  */
 
 import { fromJS } from 'immutable';
-import { DEFAULT_LOCALE } from 'common/containers/App/constants';
+import { DEFAULT_LOCALE } from '../locale/constants';
 import {
   MESSAGES_REQUEST,
   MESSAGES_SUCCESS,
@@ -11,11 +11,7 @@ import {
 } from './constants';
 
 const initialMessages = {};
-initialMessages[DEFAULT_LOCALE] = {
-  app: {
-    common: {}
-  }
-};
+initialMessages[DEFAULT_LOCALE] = {};
 
 const initialState = fromJS({
   messages: initialMessages,
@@ -41,6 +37,7 @@ const translationsReducer = (state = initialState, action: {}) => {
       const { locale, response } = payload;
       return response.reduce((newState, found) => {
         const { module, page, messages } = found;
+        if (!module) return newState;
         return newState.mergeIn(['messages', locale, module, page], messages);
       }, state)
         .set('pending', false);

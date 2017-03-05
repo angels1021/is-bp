@@ -7,13 +7,18 @@ import { memoize } from 'lodash-es';
 /**
  * plain selectors, single memoize cache
  */
-export const selectTranslations = () => memoize((state) => state.get('translations'));
+const selectGlobal = () => memoize((state) => state.get('global'));
 const selectModuleName = () => (_, props) => props.module;
 const selectLocale = () => (_, props) => props.locale;
 
+export const selectTranslations = () => createSelector(
+  selectGlobal(),
+  (global) => global.get('translations')
+);
+
 export const selectMessages = () => createSelector(
   selectTranslations(),
-  (translations) => translations.get('messages')
+  (translations) => translations ? translations.get('messages') : {}
 );
 
 export const selectRequest = () => createSelector(

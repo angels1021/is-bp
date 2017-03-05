@@ -33,7 +33,7 @@ describe('API translations sagas', () => {
     beforeEach(() => {
       // arrange
       Generator = callGetMassages(payload);
-      const expectedResult = select(selectNewRequest);
+      const expectedResult = select(selectNewRequest());
       // act
       const result = Generator.next().value;
       // assert

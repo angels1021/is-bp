@@ -10,11 +10,13 @@ export const isLoggedIn = () => !!(localStorage.getItem('token'));
  */
 export const logout = (userId) => (
   userLogout(userId)
-    .then((response) => {
-      localStorage.removeItem('token', response.token);
-      return Promise.resolve({ response });
+    .then((res) => {
+      const { response } = res;
+      if (response) {
+        localStorage.removeItem('token', response.token);
+      }
+      return res;
     })
-    .catch((error) => Promise.resolve({ error }))
 );
 
 /**
@@ -30,8 +32,9 @@ export const login = ({ username, password, code = '' }) => { // eslint-disable-
   if (isLoggedIn()) {
     const token = localStorage.getItem('token');
     return getUsers({ token })
-      .then((users) => {
-        const user = users && users[0];
+      .then((res) => {
+        const { response } = res;
+        const user = response && response[0];
         if (user) {
           return { response: user };
         }
@@ -41,20 +44,20 @@ export const login = ({ username, password, code = '' }) => { // eslint-disable-
   }
 
   return userLlogin({ username, password, code })
-    .then((response) => {
-    // Save token to local storage
+    .then((res) => {
+      const { response } = res;
+      // Save token to local storage
       if (!response) {
-        return Promise.resolve({ error: false });
+        return { error: false };
       }
       localStorage.setItem('token', response.token);
-      return ({ response });
-    })
-    .catch(() => ({ error: false }));
+      return res;
+    });
 };
 
 
 export const register = (username, password) => (
   userRegister({ username, password })
-    .then(() => login(username, password))
+    .then(({ response }) => response ? login(username, password) : res)
     .catch((error) => Promise.resolve({ error }))
 );

@@ -43,8 +43,8 @@ server.route('/locale/:localeKey')
     const { modulePath } = req.query;
     const { localeKey } = req.params;
     try {
-      const getModule = JSON.parse(modulePath);
-      getLocale(localeKey, getModule)
+      const getModules = JSON.parse(modulePath);
+      Promise.all(getModules.map((module) => getLocale(localeKey, module)))
         .then((found) => { res.jsonp(found); })
         .catch((error) => { res.jsonp({ error }); });
     } catch (error) {
