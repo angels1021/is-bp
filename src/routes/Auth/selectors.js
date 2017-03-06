@@ -4,7 +4,7 @@
 import { createSelector } from 'reselect';
 import { memoize } from 'lodash-es';
 
-const selectAuth = () => memoize((state) => state.get('authRoute'));
+const selectAuth = () => memoize((state) => state.get('authModule'));
 
 export const selectLocaleState = () => createSelector(
   selectAuth(),

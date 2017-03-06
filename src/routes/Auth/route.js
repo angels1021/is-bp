@@ -9,10 +9,10 @@ export default buildRoute({
     Promise.all([
       import('./reducer')
     ]).then(([reducer]) => {
-      injectReducer('authRoute', reducer.default);
+      injectReducer('authModule', reducer.default);
       Auth(loadModule);
     }).catch((ex) => {
-      console.error('failed to load reducer for auth', ex);
+      console.error('failed to load reducer for auth module', ex);
     });
   },
   childRoutes: [
