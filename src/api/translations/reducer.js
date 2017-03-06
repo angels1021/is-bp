@@ -3,7 +3,7 @@
  */
 
 import { fromJS } from 'immutable';
-import { DEFAULT_LOCALE } from '../locale/constants';
+import { DEFAULT_LOCALE } from 'common/containers/App/constants';
 import {
   MESSAGES_REQUEST,
   MESSAGES_SUCCESS,

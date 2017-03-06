@@ -1,7 +1,7 @@
 /**
  * translations sagas
  */
-import { takeLatest, call, put, select } from 'redux-saga/effects';
+import { takeEvery, fork, call, put, select } from 'redux-saga/effects';
 import { getLocale } from '../../api';
 import { selectNewRequest } from './selectors';
 import { messageSuccess, messagesError } from './actions';
@@ -43,7 +43,7 @@ export function* callGetMassages(action) {
 export function* watchMessagesFlow() {
   // any additional calls to MESSAGES_REQUEST will cancel an already running saga.
   // ie: user changed locale then changed again before api responded
-  yield takeLatest(MESSAGES_REQUEST, callGetMassages);
+  yield fork(takeEvery, MESSAGES_REQUEST, callGetMassages);
 }
 
 export const NAME = 'api/translations/sagas';

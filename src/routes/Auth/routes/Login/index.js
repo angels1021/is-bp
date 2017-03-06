@@ -18,7 +18,7 @@ import LoginForm from './components/LoginFrom';
 // local lang
 import messages from './login.messages';
 
-const requestId = FETCH_ALL(messages.PAGE);
+const requestId = FETCH_ALL(`${messages.PAGE}Page`);
 
 class Login extends Component {
 
@@ -42,6 +42,8 @@ class Login extends Component {
   }
 
   render() {
+    console.log('loading', this.props.loading(requestId));
+    console.log('error', this.props.error(requestId));
     return (
       <Column
         className={`
@@ -56,14 +58,6 @@ class Login extends Component {
             <FormattedMessage {...messages.title} />
           </h1>
         </Flex>
-        <Row>
-          <span>isLoading: </span>
-          { this.props.loading(requestId) }
-        </Row>
-        <Row>
-          <span> errors </span>
-          { this.props.error(requestId) }
-        </Row>
         <Row className="card-section collapse" >
           <LoginForm onSubmit={this._onSubmit} />
         </Row>

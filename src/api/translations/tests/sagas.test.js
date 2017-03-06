@@ -2,7 +2,7 @@
  * Test sagas for translations api
  */
 /* eslint-disable redux-saga/yield-effects */
-import { takeLatest, call, put, select } from 'redux-saga/effects';
+import { fork, takeEvery, call, put, select } from 'redux-saga/effects';
 import { getLocale } from '../../../api';
 import { MESSAGES_REQUEST } from '../constants';
 import { messageSuccess, messagesError } from '../actions';
@@ -14,7 +14,7 @@ describe('API translations sagas', () => {
     it('should listen for the latest call to MESSAGES_REQUEST', () => {
       // assert
       const Generator = watchMessagesFlow();
-      const expectedResult = takeLatest(MESSAGES_REQUEST, callGetMassages);
+      const expectedResult = fork(takeEvery, MESSAGES_REQUEST, callGetMassages);
       // act
       const result = Generator.next().value;
       // assert

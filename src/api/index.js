@@ -28,6 +28,8 @@ export const userRegister = ({ username, password }) => post('/register', {
 // locale
 export const getLocale = (locale, modulePath) => get(`/locale/${locale}`, { data: { modulePath } });
 
+export const getModuleLocale = () => Promise.resolve({ response: 'en' });
+
 /*
 * store
 *

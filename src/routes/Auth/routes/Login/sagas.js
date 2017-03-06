@@ -1,31 +1,18 @@
 /**
  * Login page sagas
  */
-import { take, takeLatest, put, fork, select, call, race, cancel } from 'redux-saga/effects';
+import { take, takeLatest, put, fork, select, call, cancel } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { FETCH_ALL } from 'common/containers/App/constants';
 import { asyncRequest, asyncSuccess, asyncFail } from 'common/containers/App/actions';
 import { requestMessages } from 'api/translations/actions';
 import { MESSAGES_SUCCESS, MESSAGES_FAIL } from 'api/translations/constants';
+import { fetchResource, waitForOther } from 'utils/initGenerators';
 import { PAGE, MODULE } from './login.messages';
 import { selectLocale } from '../../selectors';
 
 const requestId = FETCH_ALL(`${PAGE}Page`);
-
-// helper
-// fetch resources where their success/fail event are important to page load
-// for resources where it doesn't matter, call fork(put, action) instead.
-function* fetchResource(action, takeSuccess, takeFail) {
-  yield put(action);
-  const { fail } = yield race({
-    success: take(takeSuccess),
-    fail: take(takeFail)
-  });
-  if (fail) {
-    throw fail.payload.error;
-  }
-  return true;
-}
+const parentId = FETCH_ALL(`${MODULE}Module`);
 
 // act
 // fork calling load for each resource so they are simultaneous.
@@ -47,6 +34,8 @@ function* LoginFetch() {
 // call
 function* callLoginFetch() {
   try {
+    // wait for parent
+    yield waitForOther(parentId);
     // start fetch all
     yield call(LoginFetch);
     // unset page as loading
@@ -56,6 +45,7 @@ function* callLoginFetch() {
     yield put(asyncFail(requestId, error));
   }
 }
+
 
 // watch
 function* loginPageWatcher() {

@@ -7,8 +7,8 @@
 
 import { fromJS } from 'immutable';
 import { invariant } from 'utils/invariant';
+import { DEFAULT_LOCALE } from 'common/containers/App/constants';
 import {
-  DEFAULT_LOCALE,
   CHANGE_LOCALE_REQUEST,
   CHANGE_LOCALE_SUCCESS,
   CHANGE_LOCALE_FAIL,

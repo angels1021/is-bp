@@ -2,8 +2,6 @@
  * Locale api shared constants.
  */
 
-export const DEFAULT_LOCALE = 'en';
-
 export const CHANGE_LOCALE_REQUEST = 'api/locale/CHANGE_LOCALE_REQUEST';
 export const CHANGE_LOCALE_SUCCESS = 'api/locale/CHANGE_LOCALE_SUCCESS';
 export const CHANGE_LOCALE_FAIL = 'api/locale/CHANGE_LOCALE_FAIL';
