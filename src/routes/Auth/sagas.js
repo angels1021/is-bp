@@ -1,7 +1,7 @@
 /**
  * Auth fetchAll saga
  */
-import { delay } from 'redux-saga';
+
 import { take, takeLatest, put, fork, call, cancel } from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { getModuleLocale } from 'api';
@@ -22,7 +22,7 @@ function* AuthFetch() {
   yield put(asyncRequest(requestId));
   // prep messages
   const { response, error } = yield call(getModuleLocale, MODULE);
-  yield call(delay, 1000);
+
   let locale = DEFAULT_LOCALE;
   if (error) {
     yield put(changeLocaleFail(error, MODULE));
