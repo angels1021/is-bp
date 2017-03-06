@@ -9,7 +9,7 @@ import { requestMessages } from 'api/translations/actions';
 import { MESSAGES_SUCCESS, MESSAGES_FAIL } from 'api/translations/constants';
 import { fetchResource, waitForOther } from 'utils/initGenerators';
 import { PAGE, MODULE } from './login.messages';
-import { selectLocale } from '../../selectors';
+import { selectLocale, selectAuth } from '../../selectors';
 
 const requestId = FETCH_ALL(`${PAGE}Page`);
 const parentId = FETCH_ALL(`${MODULE}Module`);
@@ -35,7 +35,7 @@ function* LoginFetch() {
 function* callLoginFetch() {
   try {
     // wait for parent
-    yield waitForOther(parentId);
+    yield waitForOther(parentId, selectAuth());
     // start fetch all
     yield call(LoginFetch);
     // unset page as loading

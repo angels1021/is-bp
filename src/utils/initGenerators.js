@@ -20,11 +20,13 @@ export function* fetchResource(action, takeSuccess, takeFail) {
   return true;
 }
 // wait for another module or page to finish loading before moving on
-export function* waitForOther(moduleId) {
+export function* waitForOther(moduleId, moduleReducer = () => true) {
   const selector = selectRequestLoading();
   let isLoading = yield select(selector);
-  while (isLoading(moduleId)) {
+  let hasReducer = yield select(moduleReducer);
+  while (!hasReducer || isLoading(moduleId)) {
     yield take(ASYNC_SUCCESS);
     isLoading = yield select(selector);
+    hasReducer = yield select(moduleReducer);
   }
 }
