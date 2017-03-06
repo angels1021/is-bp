@@ -2,17 +2,33 @@
  * The global state selectors
  */
 import { createSelector } from 'reselect';
+import { memoize } from 'lodash-es';
 
 export const selectGlobal = () => (state) => state.get('global');
 
-export const selectLoading = () => createSelector(
+export const selectAsync = () => createSelector(
   selectGlobal(),
-  (globalState) => globalState.get('loading')
+  (global) => global.get('async')
 );
 
-export const selectError = () => createSelector(
-  selectGlobal(),
-  (globalState) => globalState.get('error')
+export const selectLoading = () => createSelector(
+  selectAsync(),
+  (asyncState) => asyncState.get('loading')
+);
+
+export const selectErrors = () => createSelector(
+  selectAsync(),
+  (asyncState) => asyncState.get('errors')
+);
+
+export const selectRequestLoading = () => createSelector(
+  selectLoading(),
+  (requests) => memoize((requestId) => requests.includes(requestId))
+);
+
+export const selectRequestErrors = () => createSelector(
+  selectErrors(),
+  (requests) => memoize((requestId) => (requests.has(requestId) ? requests.get(requestId) : false))
 );
 
 export const selectLocationState = () => {

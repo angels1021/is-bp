@@ -23,7 +23,8 @@
     "remove-dist": "node_modules/.bin/rimraf ./dist",
     "manage:translations": "babel-node internals/scripts/manageTranslations",
     "prebuild": "npm-run-all clean:dist test lint",
-    "build": "cross-env NODE_ENV='production' babel-node internals/scripts/build.js"
+    "build": "cross-env NODE_ENV='production' babel-node internals/scripts/build.js",
+    "sandbox": "babel-node internals/scripts/sandbox"
   },
   "lint-staged": {
     "*.js": "lint:eslint",

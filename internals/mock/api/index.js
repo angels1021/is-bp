@@ -25,14 +25,13 @@ export const setUserToken = (userId, token) => changeUser(userId, { token });
 export const getLocale = (locale, { module, page }) => new Promise((resolve, reject) => {
   const pageMessages = getIn(appModules, [module, page], false);
   if (!pageMessages) {
-    reject(new Error(`module path ${module} -> ${page} not found`));
-    return;
+    resolve({});
   }
   fs.readFile(
       `internals/translations/locales/${locale}.json`,
       (error, value) => {
         if (error) {
-          reject(new Error('locale not found'));
+          reject(error);
         } else {
           const json = JSON.parse(value);
           const ids = Object.keys(pageMessages);
@@ -42,7 +41,7 @@ export const getLocale = (locale, { module, page }) => new Promise((resolve, rej
               collection[id] = json[id]; // eslint-disable-line no-param-reassign
               return collection;
             }, {});
-          resolve([{ module, page, messages }]);
+          resolve({ module, page, messages });
         }
       }
     );

@@ -1,6 +1,6 @@
 import React, { PropTypes, PureComponent } from 'react';
 import { IntlProvider } from 'react-intl';
-import { DEFAULT_LOCALE } from '../App/constants';
+import { DEFAULT_LOCALE } from 'common/containers/App/constants';
 
 class LanguageProvider extends PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {

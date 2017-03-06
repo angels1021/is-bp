@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`API translations reducer should return the initial state 1`] = `
+Object {
+  "error": false,
+  "messages": Object {
+    "en": Object {
+      "app": Object {
+        "common": Object {},
+      },
+    },
+  },
+  "pending": false,
+}
+`;

@@ -47,6 +47,8 @@ const request = (url, options) => (
   fetch(`${apiUrl}${url}`, options)
     .then(checkStatus)
     .then(parseJSON)
+    .then((response) => ({ response }))
+    .catch((error) => ({ error }))
 );
 
 export default request;

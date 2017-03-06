@@ -1,4 +1,5 @@
 import { conformsTo, isEmpty, isFunction, isObject, isString } from 'lodash-es';
+import { fetchAll } from 'common/containers/App/actions';
 import { invariant, warning } from './invariant';
 import createReducer from '../store/reducers';
 
@@ -64,6 +65,18 @@ export function injectAsyncSagas(store, isValid) {
   };
 }
 
+export function fetchAsyncDependencies(store, isValid) {
+  return function fetchDependencies(moduleId) {
+    if (!isValid) checkStore(store);
+    invariant(
+      isString(moduleId) && moduleId.length,
+      '(src/utils...) fetchAll: moduleId is required'
+    );
+
+    store.dispatch(fetchAll(moduleId));
+  };
+}
+
 /**
  * Helper for creating injectors
  */
@@ -72,6 +85,7 @@ export function getAsyncInjectors(store) {
 
   return {
     injectReducer: injectAsyncReducer(store, true),
-    injectSagas: injectAsyncSagas(store, true)
+    injectSagas: injectAsyncSagas(store, true),
+    fetchDependencies: fetchAsyncDependencies(store, true)
   };
 }

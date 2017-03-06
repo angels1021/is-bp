@@ -105,4 +105,6 @@ function* loginFlow() {
   yield fork(logoutWatcher);
 }
 
+export const NAME = 'api/login/sagas';
+
 export default loginFlow;

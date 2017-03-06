@@ -1,15 +1,29 @@
 import React, { Component, PropTypes } from 'react';
-import en from 'i18n/en';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
+import { selectModuleMessages } from 'api/translations/selectors';
+// import { requestMessages } from 'api/translations/actions';
 import LanguageProvider from 'common/containers/LanguageProvider';
 import Row from 'common/components/grid/Row';
+
+import { selectLocale } from './selectors';
+import routeMessages from './auth.messages';
 import './style/style.scss';
 
-export default class Auth extends Component {
+class Auth extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      module: routeMessages.MODULE
+    };
+  }
 
   render() {
+    const { locale, messages } = this.props;
     return (
-      <LanguageProvider locale="en" messages={en}>
+      <LanguageProvider locale={locale} messages={messages}>
         <Row
           align="center middle"
           className={`
@@ -17,7 +31,7 @@ export default class Auth extends Component {
           ps-page-container
           `}
         >
-          {this.props.children}
+          {messages && this.props.children}
         </Row>
       </LanguageProvider>
     );
@@ -25,5 +39,19 @@ export default class Auth extends Component {
 }
 
 Auth.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  messages: PropTypes.object.isRequired,
+  locale: PropTypes.string.isRequired
+  // requestMessages: PropTypes.func.isRequired
 };
+
+// const mapDispatchToProps = (dispatch) => ({
+//   // requestMessages: (locale, modules) => dispatch(requestMessages(locale, modules))
+// });
+
+const mapStateToProps = createStructuredSelector({
+  messages: selectModuleMessages(),
+  locale: selectLocale()
+});
+
+export default connect(mapStateToProps)(Auth);

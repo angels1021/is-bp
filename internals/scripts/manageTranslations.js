@@ -116,9 +116,9 @@ const extractFromFile = async (fileName) => {
 
   // extract translations to locale files and analyse
   manageTranslations({
-    messagesDirectory: "internals/translations/extractedMessages",
-    translationsDirectory: "internals/translations/locales",
-    whitelistsDirectory: "internals/translations/whitelists",
+    messagesDirectory: 'internals/translations/extractedMessages',
+    translationsDirectory: 'internals/translations/locales',
+    whitelistsDirectory: 'internals/translations/whitelists',
     languages: ['en', 'he'],
     overrideCoreMethods: {
       provideExtractedMessages: () => messages,
@@ -126,7 +126,7 @@ const extractFromFile = async (fileName) => {
       afterReporting: () =>  {
         process.exit();
       }
-    },
+    }
 
   });
 })();
