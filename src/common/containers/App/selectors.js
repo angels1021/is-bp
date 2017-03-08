@@ -4,7 +4,7 @@
 import { createSelector } from 'reselect';
 import { memoize } from 'lodash-es';
 
-export const selectGlobal = () => (state) => state.get('global');
+export const selectGlobal = () => memoize((state) => state.get('global'));
 
 export const selectAsync = () => createSelector(
   selectGlobal(),

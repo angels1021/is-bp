@@ -1,5 +1,5 @@
 import { conformsTo, isEmpty, isFunction, isObject, isString } from 'lodash-es';
-import { fetchAll } from 'common/containers/App/actions';
+import { fetchAll, fetchAllCreateSaga } from 'api/fetchAll/actions';
 import { invariant, warning } from './invariant';
 import createReducer from '../store/reducers';
 
@@ -66,14 +66,19 @@ export function injectAsyncSagas(store, isValid) {
 }
 
 export function fetchAsyncDependencies(store, isValid) {
-  return function fetchDependencies(moduleId) {
+  return function fetchDependencies(fetchOptions) {
     if (!isValid) checkStore(store);
+    const { requestId } = fetchOptions;
     invariant(
-      isString(moduleId) && moduleId.length,
-      '(src/utils...) fetchAll: moduleId is required'
+      isString(requestId) && requestId.length,
+      '(src/utils...) fetchAll: requestId is required'
     );
 
-    store.dispatch(fetchAll(moduleId));
+    if (fetchOptions.fetchGenerator) {
+      store.dispatch(fetchAllCreateSaga(fetchOptions));
+    } else {
+      store.dispatch(fetchAll(requestId));
+    }
   };
 }
 

@@ -4,8 +4,7 @@
       "latest"
     ],
     "react",
-    "stage-3",
-    "react-hmre"
+    "stage-0"
   ],
   "plugins": [
     "transform-object-rest-spread"

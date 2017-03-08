@@ -16,11 +16,11 @@ const Input = ({
         type={type}
         placeholder={placeholder}
         className={classes({
-          invalid: error && touched,
-          valid: valid && !error
+          invalid: touched && error,
+          valid: touched && valid && !error
         })}
       />
-      {error && <div className="alert callout" ><small>{error}</small></div>}
+      {touched && error && <div className="alert callout" ><small>{error}</small></div>}
     </div>
   </div>
 );

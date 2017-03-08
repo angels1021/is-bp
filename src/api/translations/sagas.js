@@ -28,11 +28,11 @@ export function* getMessages(locale, request) {
 // caller
 export function* callGetMassages(action) {
   // check exists
-  const { payload } = action;
   const newRequests = yield select(selectNewRequest());
   if (newRequests && newRequests.length) {
+    const { locale } = action.payload;
     // if one or more pages don't exist call saga
-    return yield call(getMessages, payload.locale, newRequests);
+    return yield call(getMessages, locale, newRequests);
   }
   // translations already exist,  complete saga.
   yield put(messageSuccess([]));

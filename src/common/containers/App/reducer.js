@@ -21,7 +21,7 @@ const initialState = fromJS({
 });
 
 // track async requests across the app
-const asyncReducer = (state = initialState, action) => {
+export const asyncReducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case ASYNC_REQUEST: {

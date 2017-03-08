@@ -8,7 +8,7 @@ import { createStructuredSelector } from 'reselect';
 import { FormattedMessage } from 'react-intl';
 import { loginRequest } from 'api/login/actions';
 import { selectRequestLoading, selectRequestErrors } from 'common/containers/App/selectors';
-import { FETCH_ALL } from 'common/containers/App/constants';
+import { createRequestId } from 'api/fetchAll/utils';
 // global components
 import Row from 'common/components/grid/Row';
 import Column from 'common/components/grid/Column';
@@ -18,9 +18,9 @@ import LoginForm from './components/LoginFrom';
 // local lang
 import messages from './login.messages';
 
-const requestId = FETCH_ALL(`${messages.PAGE}Page`);
+const requestId = createRequestId(`${messages.PAGE}Page`);
 
-class Login extends Component {
+export class Login extends Component {
 
   constructor(props, context) {
     super(props, context);
@@ -28,12 +28,7 @@ class Login extends Component {
     this._onSubmit = this._onSubmit.bind(this);
   }
 
-  componentDidMount() {
-    console.log('props', this.props);
-    console.log('context', this.context);
-  }
-
-  _onSubmit(formMap, formDispatch, formProps) {
+  _onSubmit(formMap, _, formProps) {
     const { valid, pristine } = formProps;
     if (!pristine && valid) {
       const formObj = formMap.toObject();
