@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`API fetchAll sagas fetchFlow should error if options.requestId or options.fetchGenerator were passed 1`] = `"received is not a function"`;

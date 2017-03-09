@@ -3,7 +3,6 @@
  */
 
 import { fork, take, put, select, race, call } from 'redux-saga/effects';
-import { ASYNC_SUCCESS } from 'common/containers/App/constants';
 import { MESSAGES_SUCCESS, MESSAGES_FAIL } from 'api/translations/constants';
 import { requestMessages } from 'api/translations/actions';
 import { selectRequestLoading, selectRequestErrors } from 'common/containers/App/selectors';
@@ -19,14 +18,14 @@ import { selectRequestLoading, selectRequestErrors } from 'common/containers/App
  */
 export function* fetchResource(action, takeSuccess, takeFail) {
   yield put(action);
-  const { fail } = yield race({
+  const { fail, success } = yield race({
     success: take(takeSuccess),
     fail: take(takeFail)
   });
   if (fail) {
     throw fail.payload.error;
   }
-  return true;
+  return success;
 }
 
 /**
@@ -61,6 +60,7 @@ export function* fetchMessages(selectLocale, request) {
 export function* checkSelectors({ requestId, loadingSelector, errorSelector, resolveSelector }) {
   const checkError = yield select(errorSelector);
   const hasError = checkError(requestId);
+  // throw to fail child page waiting for a parent that failed
   if (hasError) throw hasError;
   const isLoading = yield select(loadingSelector);
   const resolved = yield select(resolveSelector);
@@ -79,11 +79,10 @@ export function* waitForOther(requestId, resolveSelector = () => true) {
   const errorSelector = selectRequestErrors();
   const selectorOpts = { requestId, loadingSelector, errorSelector, resolveSelector };
   let { isLoading, resolved } = yield call(checkSelectors, selectorOpts);
-  while (!resolved || isLoading) {
-    yield take(ASYNC_SUCCESS);
-    const selectors = yield call(checkSelectors, selectorOpts);
-    isLoading = selectors.isLoading;
-    resolved = selectors.resolved;
+  while (isLoading || !resolved) {
+    const response = yield call(checkSelectors, selectorOpts);
+    isLoading = response.isLoading;
+    resolved = response.resolved;
   }
 }
 

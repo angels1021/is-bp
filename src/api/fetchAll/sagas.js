@@ -24,7 +24,7 @@ export function* callFetchSaga({ requestId, fetchGenerator, parentId, resolveSel
   try {
     if (parentId) {
       // wait for parent
-      yield waitForOther(parentId, resolveSelector);
+      yield call(waitForOther, parentId, resolveSelector);
     }
     // set page as 'loading'
     yield put(asyncRequest(requestId));
@@ -33,7 +33,6 @@ export function* callFetchSaga({ requestId, fetchGenerator, parentId, resolveSel
     // unset page as loading
     yield put(asyncSuccess(requestId));
   } catch (error) {
-    // set page as 'with error'
     yield put(asyncFail(requestId, error));
   }
 }
@@ -64,12 +63,13 @@ export function* watchFetchSaga(options) {
  */
 export function* fetchFlow({ payload }) {
   invariant(
-    (payload.requestId && payload.fetchGenerator),
+    (payload && payload.requestId && payload.fetchGenerator),
     'api/fetchAll/sagas fetchFlowFactory options requestId and fetchGenerator are required'
   );
   // Fork watcher so we can continue execution
   const watcher = yield fork(watchFetchSaga, payload);
-  // call request once
+  // call request once - we set a watcher instead of just calling callFetchSaga
+  // to allow for an external retry
   yield put({ type: payload.requestId });
 
   // Suspend execution until location changes
@@ -79,7 +79,9 @@ export function* fetchFlow({ payload }) {
 
 export const NAME = 'api/fetchAll/saga';
 
-export default function* fetchWatcher() {
+export function* fetchWatcher() {
   // watch for any FETCH_ALL event
   yield fork(takeEvery, FETCH_ALL, fetchFlow);
 }
+
+export default fetchWatcher;

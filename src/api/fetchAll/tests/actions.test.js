@@ -3,6 +3,7 @@
  */
 
 import { fetchAll, fetchAllCreateSaga } from '../actions';
+import { FETCH_ALL } from '../constants';
 
 describe('API fetchAll actions', () => {
   describe('fetchAll', () => {
@@ -21,18 +22,23 @@ describe('API fetchAll actions', () => {
   describe('fetchAllCreateSaga', () => {
     it('should create the correct action object for FETCH_ALL', () => {
       // arrange
-      const payload = {
-        requestId: 'someModule/FETCH_ALL',
+      const options = {
+        requestId: 'someModule',
         fetchGenerator: 'generator function',
-        parentId: 'someParentModule/FETCH_ALL',
+        parentId: 'someParentModule',
         resolveSelector: 'some selector'
       };
       const expectedResult = {
-        type: 'FETCH_ALL',
-        payload
+        type: FETCH_ALL,
+        payload: {
+          requestId: 'someModule/FETCH_ALL',
+          fetchGenerator: 'generator function',
+          parentId: 'someParentModule/FETCH_ALL',
+          resolveSelector: 'some selector'
+        }
       };
       // act
-      const result = fetchAllCreateSaga(payload);
+      const result = fetchAllCreateSaga(options);
       // assert
       expect(result).toEqual(expectedResult);
     });
