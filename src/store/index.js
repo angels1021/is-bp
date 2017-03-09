@@ -7,6 +7,7 @@ import { routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import authSaga, { NAME as authSagaName } from 'api/login/sagas';
 import translationsSaga, { NAME as translationsSagaName } from 'api/translations/sagas';
+import fetchAllSaga, { NAME as fetchAllSagaName } from 'api/fetchAll/sagas';
 
 import createReducer from './reducers';
 
@@ -42,12 +43,14 @@ export default function configureStore(initialState = {}, history) {
   // Extensions
   store.runSaga = sagaMiddleware.run;
   store.asyncReducers = {}; // Async reducer registry
-  store.asyncSagas = new Set([authSagaName, translationsSagaName]); // reference started sagas
+  store.asyncSagas = new Set([authSagaName, translationsSagaName, fetchAllSagaName]); // reference started sagas
 
   // login/logout saga should always be running
   sagaMiddleware.run(authSaga);
   // always listen for translations requests
   sagaMiddleware.run(translationsSaga);
+  // page fetch resources requests
+  sagaMiddleware.run(fetchAllSaga);
 
   // Make reducers hot reloadable, see http://mxs.is/googmo
   if (module.hot) {

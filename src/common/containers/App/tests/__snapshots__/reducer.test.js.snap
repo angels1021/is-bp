@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Global.async reducer should return the initial state 1`] = `
+Object {
+  "errors": Object {},
+  "loading": Array [],
+}
+`;

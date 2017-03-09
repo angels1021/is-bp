@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Select /> default should render a Select component with default options 1`] = `
+<Select
+  addLabelText="Add \\"{label}\\"?"
+  arrowRenderer={[Function]}
+  autosize={true}
+  backspaceRemoves={true}
+  backspaceToRemoveMessage="Press backspace to remove {label}"
+  className="ps-select__actions"
+  clearAllText="Clear all"
+  clearRenderer={[Function]}
+  clearValueText="Clear value"
+  clearable={true}
+  deleteRemoves={true}
+  delimiter=","
+  disabled={false}
+  escapeClearsValue={true}
+  filterOptions={[Function]}
+  ignoreAccents={true}
+  ignoreCase={true}
+  inputProps={Object {}}
+  isLoading={false}
+  joinValues={false}
+  label={false}
+  labelKey="label"
+  matchPos="any"
+  matchProp="any"
+  menuBuffer={0}
+  menuRenderer={[Function]}
+  multi={false}
+  name="testInput"
+  noResultsText="No results found"
+  onBlurResetsInput={true}
+  onCloseResetsInput={true}
+  openAfterFocus={false}
+  optionComponent={[Function]}
+  options={
+    Array [
+      Object {
+        "label": "sups",
+        "value": "superman",
+      },
+      Object {
+        "label": "bats",
+        "value": "batman",
+      },
+    ]
+  }
+  pageSize={5}
+  placeholder=""
+  required={false}
+  scrollMenuIntoView={true}
+  searchable={true}
+  simpleValue={false}
+  tabSelectsValue={true}
+  valueComponent={[Function]}
+  valueKey="value"
+/>
+`;
+
+exports[`<Select /> default should render with default options 1`] = `
+<div
+  className="small-12"
+>
+  <div>
+    <Select
+      addLabelText="Add \\"{label}\\"?"
+      arrowRenderer={[Function]}
+      autosize={true}
+      backspaceRemoves={true}
+      backspaceToRemoveMessage="Press backspace to remove {label}"
+      className="ps-select__actions"
+      clearAllText="Clear all"
+      clearRenderer={[Function]}
+      clearValueText="Clear value"
+      clearable={true}
+      deleteRemoves={true}
+      delimiter=","
+      disabled={false}
+      escapeClearsValue={true}
+      filterOptions={[Function]}
+      ignoreAccents={true}
+      ignoreCase={true}
+      inputProps={Object {}}
+      isLoading={false}
+      joinValues={false}
+      label={false}
+      labelKey="label"
+      matchPos="any"
+      matchProp="any"
+      menuBuffer={0}
+      menuRenderer={[Function]}
+      multi={false}
+      name="testInput"
+      noResultsText="No results found"
+      onBlurResetsInput={true}
+      onCloseResetsInput={true}
+      openAfterFocus={false}
+      optionComponent={[Function]}
+      options={
+        Array [
+          Object {
+            "label": "sups",
+            "value": "superman",
+          },
+          Object {
+            "label": "bats",
+            "value": "batman",
+          },
+        ]
+      }
+      pageSize={5}
+      placeholder=""
+      required={false}
+      scrollMenuIntoView={true}
+      searchable={true}
+      simpleValue={false}
+      tabSelectsValue={true}
+      valueComponent={[Function]}
+      valueKey="value"
+    />
+  </div>
+</div>
+`;

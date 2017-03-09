@@ -1,12 +1,13 @@
 import React, { Component, PropTypes } from 'react';
+import Flex from '../../components/grid/Flex';
 
 export default class App extends Component {
 
   render() {
     return (
-      <div className="ps-app-container ps-flex__center-col">
+      <Flex align="center" direction="column" className="ps-app-container">
         {this.props.children}
-      </div>
+      </Flex>
     );
   }
 }

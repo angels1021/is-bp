@@ -59,15 +59,13 @@ describe('API translations selectors', () => {
       expect(selector.recomputations()).toBe(1);
     });
 
-    it('should recompute if changes were made to the messages object', () => {
+    it('should recompute if changes were made to the translations object', () => {
       // arrange
-      const change = (state) => state.mergeDeepIn(['translations', 'messages'], { he: {} });
-      const expectedResult = { en: {}, he: {} };
+      const change = (state) => state.setIn(['global', 'translations', 'otherProp'], {});
       // act
       testState = reducer(testState, change);
-      const result = selector(testState).toJS();
-      // assert - mockState 'messages' changed
-      expect(result).toEqual(expectedResult);
+      selector(testState);
+      // assert - mockState 'translations' changed
       expect(selector.recomputations()).toBe(2);
     });
 
@@ -105,7 +103,7 @@ describe('API translations selectors', () => {
 
     it('should recompute if changes were made to the pending property', () => {
       // arrange
-      const change = (state) => state.setIn(['translations', 'pending'], {});
+      const change = (state) => state.setIn(['global', 'translations', 'pending'], {});
       const expectedResult = {};
       // act
       testState = reducer(testState, change);
@@ -129,7 +127,7 @@ describe('API translations selectors', () => {
       const initialLang = {
         app: { common: { 'app.common.text': 'text' } }
       };
-      const setExisting = (state) => state.mergeIn(['translations', 'messages', 'en'], initialLang);
+      const setExisting = (state) => state.mergeIn(['global', 'translations', 'messages', 'en'], initialLang);
       // arrange
       mockState = reducer(mockState, setExisting);
       const selector = selectLocaleTranslations(mockState);
@@ -142,7 +140,7 @@ describe('API translations selectors', () => {
     it('should recompute on changes to locale or messages', () => {
       // arrange
       const selector = selectLocaleTranslations(mockState);
-      const changeMessages = (state) => state.mergeIn(['translations', 'messages'], {
+      const changeMessages = (state) => state.mergeIn(['global', 'translations', 'messages'], {
         he: {}
       });
       selector(mockState, mockProps);
@@ -166,7 +164,7 @@ describe('API translations selectors', () => {
 
   describe('selectModuleMessages', () => {
     // arrange
-    const setExisting = (state) => state.mergeIn(['translations', 'messages', 'en'], {
+    const setExisting = (state) => state.mergeIn(['global', 'translations', 'messages', 'en'], {
       app: { common: { 'app.common.text': 'text' } }, ms: { settings: { 'ms.settings.text': 'text' } }
     });
     it('should return aggregated message for a module and locale', () => {
@@ -188,12 +186,12 @@ describe('API translations selectors', () => {
       mockState = reducer(mockState, setExisting);
       selector(mockState, mockProps);
       // act
-      mockState = reducer(mockState, (state) => state.mergeIn(['translations', 'messages'], { he: {} }));
+      mockState = reducer(mockState, (state) => state.mergeIn(['global', 'translations', 'messages'], { he: {} }));
       selector(mockState, mockProps);
       // assert - change is not to selected locale (en)
       expect(selector.recomputations()).toBe(1);
       // act
-      mockState = reducer(mockState, (state) => state.mergeDeepIn(['translations', 'messages'], {
+      mockState = reducer(mockState, (state) => state.mergeDeepIn(['global', 'translations', 'messages'], {
         en: { app: { common: { 'app.common.text2': 'text2' } } }
       }));
       selector(mockState, mockProps);
@@ -219,10 +217,10 @@ describe('API translations selectors', () => {
 
     it('should return filtered module requests according to existing translations', () => {
       // arrange
-      const setExisting = (state) => state.mergeIn(['translations', 'messages', 'en'], {
+      const setExisting = (state) => state.mergeIn(['global', 'translations', 'messages', 'en'], {
         app: { common: { 'app.common.text': 'text' } }
       });
-      const setRequest = (state) => state.setIn(['translations', 'pending'], {
+      const setRequest = (state) => state.setIn(['global', 'translations', 'pending'], {
         locale: 'en',
         request: [{ module: 'app', page: 'common' }, { module: 'ms', page: 'settings' }]
       });
@@ -240,9 +238,9 @@ describe('API translations selectors', () => {
     it('should only recompute on changes to pending or messages', () => {
       // arrange
       const selector = selectNewRequest();
-      const change = (state) => state.setIn(['translations', 'pending'], {});
-      const changeParent = (state) => state.setIn(['translations', 'error'], {});
-      const changeMessages = (state) => state.mergeIn(['translations', 'messages', 'en'], {
+      const change = (state) => state.setIn(['global', 'translations', 'pending'], {});
+      const changeParent = (state) => state.setIn(['global', 'translations', 'error'], {});
+      const changeMessages = (state) => state.mergeIn(['global', 'translations', 'messages', 'en'], {
         app: { common: { 'app.common.text': 'text' } }
       });
       // act

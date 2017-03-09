@@ -25,17 +25,19 @@ describe('API translations sagas', () => {
   describe('callGetMassages', () => {
     // assert
     let Generator;
-    const payload = {
-      locale: 'en',
-      request: [{ module: 'app', page: 'common' }, { module: 'ms', page: 'settings' }]
+    const action = {
+      payload: {
+        locale: 'en',
+        request: [{ module: 'app', page: 'common' }, { module: 'ms', page: 'settings' }]
+      }
     };
 
     beforeEach(() => {
       // arrange
-      Generator = callGetMassages(payload);
-      const expectedResult = select(selectNewRequest());
+      Generator = callGetMassages(action);
+      const expectedResult = JSON.stringify(select(selectNewRequest()));
       // act
-      const result = Generator.next().value;
+      const result = JSON.stringify(Generator.next().value);
       // assert
       expect(result).toEqual(expectedResult);
     });
@@ -54,8 +56,8 @@ describe('API translations sagas', () => {
     // has new requests
     it('should call getMessages saga if new requests exist', () => {
       // arrange
-      const request = [{ module: 'ms', page: 'settings' }];
-      const expectedResult = call(getMessages, payload.locale, request);
+      const { locale, request } = action.payload;
+      const expectedResult = call(getMessages, locale, request);
       // act
       const result = Generator.next(request).value;
       // assert

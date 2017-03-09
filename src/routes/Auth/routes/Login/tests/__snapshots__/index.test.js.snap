@@ -1,0 +1,210 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Login /> container should render correctly 1`] = `
+ShallowWrapper {
+  "complexSelector": ComplexSelector {
+    "buildPredicate": [Function],
+    "childrenOfNode": [Function],
+    "findWhereUnwrapped": [Function],
+  },
+  "length": 1,
+  "node": <Column
+    className="
+        small-12
+        m-small-6
+        medium-4
+        large-3
+        ps-login-card card"
+>
+    <grid(Flex)
+        align="center"
+        className="card-section ps-shrink"
+        direction=""
+    >
+        <h1
+            className="text-center"
+        >
+            <FormattedMessage
+                defaultMessage="login"
+                description="title for login page"
+                id="auth.login.title"
+                values={Object {}}
+            />
+        </h1>
+    </grid(Flex)>
+    <grid(Row)
+        align=""
+        className="card-section collapse"
+        direction=""
+    >
+        <ReduxForm
+            onSubmit={[Function]}
+        />
+    </grid(Row)>
+</Column>,
+  "nodes": Array [
+    <Column
+      className="
+        small-12
+        m-small-6
+        medium-4
+        large-3
+        ps-login-card card"
+>
+      <grid(Flex)
+            align="center"
+            className="card-section ps-shrink"
+            direction=""
+      >
+            <h1
+                  className="text-center"
+            >
+                  <FormattedMessage
+                        defaultMessage="login"
+                        description="title for login page"
+                        id="auth.login.title"
+                        values={Object {}}
+                  />
+            </h1>
+      </grid(Flex)>
+      <grid(Row)
+            align=""
+            className="card-section collapse"
+            direction=""
+      >
+            <ReduxForm
+                  onSubmit={[Function]}
+            />
+      </grid(Row)>
+</Column>,
+  ],
+  "options": Object {},
+  "renderer": ReactShallowRenderer {
+    "_instance": ShallowComponentWrapper {
+      "_calledComponentWillUnmount": false,
+      "_compositeType": 0,
+      "_context": Object {},
+      "_currentElement": <Login
+        error={[Function]}
+        loading={[Function]}
+        login={[Function]}
+/>,
+      "_debugID": 1,
+      "_hostContainerInfo": null,
+      "_hostParent": null,
+      "_instance": Login {
+        "_onSubmit": [Function],
+        "_reactInternalInstance": [Circular],
+        "context": Object {},
+        "props": Object {
+          "error": [Function],
+          "loading": [Function],
+          "login": [Function],
+        },
+        "refs": Object {},
+        "state": null,
+        "updater": Object {
+          "enqueueCallback": [Function],
+          "enqueueCallbackInternal": [Function],
+          "enqueueElementInternal": [Function],
+          "enqueueForceUpdate": [Function],
+          "enqueueReplaceState": [Function],
+          "enqueueSetState": [Function],
+          "isMounted": [Function],
+          "validateCallback": [Function],
+        },
+      },
+      "_mountOrder": 1,
+      "_pendingCallbacks": null,
+      "_pendingElement": null,
+      "_pendingForceUpdate": false,
+      "_pendingReplaceState": false,
+      "_pendingStateQueue": null,
+      "_renderedComponent": NoopInternalComponent {
+        "_currentElement": <Column
+          className="
+        small-12
+        m-small-6
+        medium-4
+        large-3
+        ps-login-card card"
+>
+          <grid(Flex)
+                    align="center"
+                    className="card-section ps-shrink"
+                    direction=""
+          >
+                    <h1
+                              className="text-center"
+                    >
+                              <FormattedMessage
+                                        defaultMessage="login"
+                                        description="title for login page"
+                                        id="auth.login.title"
+                                        values={Object {}}
+                              />
+                    </h1>
+          </grid(Flex)>
+          <grid(Row)
+                    align=""
+                    className="card-section collapse"
+                    direction=""
+          >
+                    <ReduxForm
+                              onSubmit={[Function]}
+                    />
+          </grid(Row)>
+</Column>,
+        "_debugID": 2,
+        "_renderedOutput": <Column
+          className="
+        small-12
+        m-small-6
+        medium-4
+        large-3
+        ps-login-card card"
+>
+          <grid(Flex)
+                    align="center"
+                    className="card-section ps-shrink"
+                    direction=""
+          >
+                    <h1
+                              className="text-center"
+                    >
+                              <FormattedMessage
+                                        defaultMessage="login"
+                                        description="title for login page"
+                                        id="auth.login.title"
+                                        values={Object {}}
+                              />
+                    </h1>
+          </grid(Flex)>
+          <grid(Row)
+                    align=""
+                    className="card-section collapse"
+                    direction=""
+          >
+                    <ReduxForm
+                              onSubmit={[Function]}
+                    />
+          </grid(Row)>
+</Column>,
+      },
+      "_renderedNodeType": 1,
+      "_rootNodeID": 0,
+      "_topLevelWrapper": null,
+      "_updateBatchNumber": null,
+      "_warnedAboutRefsInRender": false,
+    },
+    "getRenderOutput": [Function],
+    "render": [Function],
+  },
+  "root": [Circular],
+  "unrendered": <Login
+    error={[Function]}
+    loading={[Function]}
+    login={[Function]}
+/>,
+}
+`;

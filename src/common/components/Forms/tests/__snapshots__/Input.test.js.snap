@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Input /> default should render an input with default options 1`] = `
+<input
+  className=""
+  name="testInput"
+  placeholder=""
+  type="text"
+/>
+`;
+
+exports[`<Input /> default should render correctly with default options 1`] = `
+<div
+  className="small-12"
+>
+  <div>
+    <input
+      className=""
+      name="testInput"
+      placeholder=""
+      type="text"
+    />
+  </div>
+</div>
+`;

@@ -7,7 +7,7 @@ import Select from 'common/components/Forms/Select';
 import Row from 'common/components/grid/Row';
 import Flex from 'common/components/grid/Flex';
 import { initialState as initialValues } from 'api/login/constants';
-import commonMessages from 'common/containers/App/translations/common.messages';
+import loginMessages from '../login.messages';
 
 const optionValue = (option) => option && option.value;
 
@@ -29,7 +29,7 @@ const LoginForm = ({ onSubmit, handleSubmit }) => (
     className="ps-flex column small-12"
     onSubmit={handleSubmit(onSubmit)}
   >
-    <Row align="justify" direction="column" className="collapse is-collapse-child" >
+    <Row align="right" direction="column" className="collapse is-collapse-child" >
       <Flex className="column shrink" direction="column">
         <Row>
           <Field component={Input} type="text" name="username" placeholder="Username" />
@@ -51,7 +51,7 @@ const LoginForm = ({ onSubmit, handleSubmit }) => (
       <Flex align="center middle" className=" column shrink ps-flex">
         <button className="button primary">
           <span>
-            <FormattedMessage {...commonMessages.submit} />
+            <FormattedMessage {...loginMessages.submit} />
           </span>
         </button>
       </Flex>

@@ -11,8 +11,7 @@ export default {
       }
     ],
     'react',
-    'stage-3',
-    'react-hmre'
+    'stage-3'
   ],
   plugins: [
     'transform-object-rest-spread',
@@ -28,6 +27,9 @@ export default {
         'transform-react-constant-elements',
         'transform-react-inline-elements'
       ]
+    },
+    development: {
+      presets: ['react-hmre']
     }
   }
 };
