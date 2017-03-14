@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form/immutable';
-import { FormattedMessage } from 'react-intl';
 
 import Input from 'common/components/Forms/Input';
 import Select from 'common/components/Forms/Select';
+import Submit from 'common/components/Forms/Submit';
 import Row from 'common/components/grid/Row';
 import Flex from 'common/components/grid/Flex';
 import { initialState as initialValues } from 'api/login/constants';
@@ -22,7 +22,7 @@ const options = [
   }
 ];
 
-const LoginForm = ({ onSubmit, handleSubmit }) => (
+const LoginForm = ({ onSubmit, handleSubmit, submitting }) => (
   <form
     name="loginForm"
     id="loginForm"
@@ -49,17 +49,14 @@ const LoginForm = ({ onSubmit, handleSubmit }) => (
         <Field component="input" type="hidden" name="code" />
       </Flex>
       <Flex align="center middle" className=" column shrink ps-flex">
-        <button className="button primary">
-          <span>
-            <FormattedMessage {...loginMessages.submit} />
-          </span>
-        </button>
+        <Submit color="primary" text={loginMessages.submit} busy={submitting} />
       </Flex>
     </Row>
   </form>
 );
 
 LoginForm.propTypes = {
+  submitting: PropTypes.bool.isRequired,
   onSubmit: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired
 };
