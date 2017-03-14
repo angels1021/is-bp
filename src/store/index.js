@@ -45,12 +45,8 @@ export default function configureStore(initialState = {}, history) {
   store.asyncReducers = {}; // Async reducer registry
   store.asyncSagas = new Set([authSagaName, translationsSagaName, fetchAllSagaName]); // reference started sagas
 
-  // login/logout saga should always be running
-  sagaMiddleware.run(authSaga);
-  // always listen for translations requests
-  sagaMiddleware.run(translationsSaga);
-  // page fetch resources requests
-  sagaMiddleware.run(fetchAllSaga);
+  const sagas = [authSaga, translationsSaga, fetchAllSaga];
+  sagas.map(sagaMiddleware.run);
 
   // Make reducers hot reloadable, see http://mxs.is/googmo
   if (module.hot) {

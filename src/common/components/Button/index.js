@@ -1,14 +1,35 @@
 import React, { PropTypes } from 'react';
-import '../../../style/components/buttons.scss';
+import { injectIntl, intlShape } from 'react-intl';
 
-const Button = ({ children }) => (
-  <button type="button" className={`button ${children}`} >
-    <span>{children}</span>
+const Button = ({
+  intl,
+  text = '',
+  icon = false,
+  busy = false,  // todo create button loader component
+  color = 'secondary',
+  type = 'button'
+}) => (
+  <button type={type} className={`button ${color}`} disabled={busy} >
+    <span>
+      {!busy &&
+      (<span>
+        {icon && <span>{icon}</span>}
+        {text && <span>{intl.formatMessage(text)}</span>}
+      </span>)
+      }
+      {busy && <span>loader</span>}
+    </span>
   </button>
 );
 
+/* eslint-disable react/require-default-props */
 Button.propTypes = {
-  children: PropTypes.string.isRequired
+  intl: intlShape.isRequired,
+  text: PropTypes.string,
+  type: PropTypes.oneOf(['button', 'submit']),
+  icon: PropTypes.string, // todo create icon component
+  busy: PropTypes.bool,
+  color: PropTypes.oneOf(['secondary', 'primary', 'success', 'alert', 'warning', 'info', 'text'])
 };
 
-export default Button;
+export default injectIntl(Button);
