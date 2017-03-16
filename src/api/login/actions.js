@@ -73,7 +73,7 @@ export const loginRequest = (data) => ({
 /**
  * Tells the app we want to log out a user
  *
- * @param {strin/number} userId - the user to logout;
+ * @param {string/number} userId - the user to logout;
  */
 export const logoutRequest = (userId) => ({
   type: LOGOUT,

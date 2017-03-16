@@ -7597,6 +7597,18 @@ reduce-function-call@^1.0.1:
   dependencies:
     balanced-match "^0.4.2"
 
+reduce-reducers@^0.1.0:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/reduce-reducers/-/reduce-reducers-0.1.2.tgz#fa1b4718bc5292a71ddd1e5d839c9bea9770f14b"
+
+redux-actions@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/redux-actions/-/redux-actions-2.0.1.tgz#8bae89938987bd0a446c509dfdac6b64e770765a"
+  dependencies:
+    invariant "^2.2.1"
+    lodash "^4.13.1"
+    reduce-reducers "^0.1.0"
+
 redux-auth-wrapper@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/redux-auth-wrapper/-/redux-auth-wrapper-1.0.0.tgz#9aa16f8934563efe92f684b2ab201b4f01f50381"

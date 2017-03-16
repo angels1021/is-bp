@@ -2,6 +2,7 @@
  * Login page sagas
  */
 import { fork } from 'redux-saga/effects';
+import loginSagas, { NAME } from 'api/auth/sagas.login';
 import { fetchMessages } from 'api/fetchAll/utils';
 import { PAGE, MODULE } from './login.messages';
 import { selectLocale, selectAuth } from '../../selectors';
@@ -22,3 +23,7 @@ export const fetchOptions = {
   parentId: `${MODULE}Module`,
   resolveSelector: selectAuth()
 };
+
+export const inject = [
+  [NAME, loginSagas]
+];

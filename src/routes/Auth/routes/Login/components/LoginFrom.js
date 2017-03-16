@@ -6,7 +6,7 @@ import Select from 'common/components/Forms/Select';
 import Submit from 'common/components/Forms/Submit';
 import Row from 'common/components/grid/Row';
 import Flex from 'common/components/grid/Flex';
-import { initialState as initialValues } from 'api/login/constants';
+import { initialState as initialValues } from 'api/auth/constants';
 import loginMessages from '../login.messages';
 
 const optionValue = (option) => option && option.value;

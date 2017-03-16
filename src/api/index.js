@@ -13,7 +13,7 @@ export const getUser = (id) => get(`/users/${id}`);
 
 export const getUsers = (queryParams) => get('/users', { data: queryParams });
 
-export const userLlogin = ({ username, password, code = '' }) => (
+export const userlogin = ({ username, password, code = '' }) => (
   post('/login', { data: { username, password, code } })
 );
 

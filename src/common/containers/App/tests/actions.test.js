@@ -11,7 +11,7 @@ describe('App global actions', () => {
       // arrange
       const expectedResult = {
         type: ASYNC_REQUEST,
-        payload: { id: 'someModule' }
+        payload: 'someModule'
       };
       // act
       const result = asyncRequest('someModule');
@@ -25,7 +25,7 @@ describe('App global actions', () => {
       // arrange
       const expectedResult = {
         type: ASYNC_SUCCESS,
-        payload: { id: 'someModule' }
+        payload: 'someModule'
       };
       // act
       const result = asyncSuccess('someModule');

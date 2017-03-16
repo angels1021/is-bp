@@ -22,8 +22,8 @@ server.route('/login')
           return setUserToken(user.id, token);
         }
         return false;
-      }).then((user) => {
-        res.jsonp(user && user.id ? user : false);
+      }).then(({ user, token }) => {
+        res.jsonp(user && user.id ? { user, token } : false);
       })
       .catch(() => { res.jsonp(false); });
   });
