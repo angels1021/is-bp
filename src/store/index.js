@@ -8,7 +8,6 @@ import createSagaMiddleware from 'redux-saga';
 import { formActionSaga } from 'redux-form-saga';
 import logoutSaga, { NAME as logoutSagaName } from 'api/auth/sagas.logout';
 import translationsSaga, { NAME as translationsSagaName } from 'api/translations/sagas';
-import fetchAllSaga, { NAME as fetchAllSagaName } from 'api/fetchAll/sagas';
 
 import createReducer from './reducers';
 
@@ -44,9 +43,9 @@ export default function configureStore(initialState = {}, history) {
   // Extensions
   store.runSaga = sagaMiddleware.run;
   store.asyncReducers = {}; // Async reducer registry
-  store.asyncSagas = new Set([logoutSagaName, translationsSagaName, fetchAllSagaName]); // reference started sagas
+  store.asyncSagas = new Set([logoutSagaName, translationsSagaName]); // reference started sagas
 
-  const sagas = [formActionSaga, logoutSaga, translationsSaga, fetchAllSaga];
+  const sagas = [formActionSaga, logoutSaga, translationsSaga];
   sagas.map(sagaMiddleware.run);
 
   // Make reducers hot reloadable, see http://mxs.is/googmo

@@ -27,15 +27,16 @@ export const asyncReducer = (state = initialState, action) => {
   const { type } = action;
   switch (type) {
     case ASYNC_REQUEST: {
-      const { payload: id } = action;
+      const { id } = action.meta;
       return state.deleteIn(['errors', id]).mergeIn(['loading'], [id]);
     }
     case ASYNC_SUCCESS: {
-      const { payload: id } = action;
+      const { id } = action.meta;
       return state.deleteIn(['errors', id]).set('loading', deleteInList(state.get('loading'), id));
     }
     case ASYNC_FAIL: {
-      const { id, error } = action.payload;
+      const { id } = action.meta;
+      const { payload: error } = action;
       return state.setIn(['errors', id], error).set('loading', deleteInList(state.get('loading'), id));
     }
     default:

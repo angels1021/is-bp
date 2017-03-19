@@ -9,7 +9,7 @@ import { SubmissionError } from 'redux-form/immutable';
 import { FormattedMessage } from 'react-intl';
 import { loginAction } from 'api/auth/actions';
 import { selectRequestLoading, selectRequestErrors } from 'common/containers/App/selectors';
-import { createRequestId } from 'api/fetchAll/utils';
+import { createRequestId } from 'api/fetchAll/sagas';
 // global components
 import Row from 'common/components/grid/Row';
 import Column from 'common/components/grid/Column';

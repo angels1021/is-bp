@@ -11,7 +11,7 @@ describe('App global actions', () => {
       // arrange
       const expectedResult = {
         type: ASYNC_REQUEST,
-        payload: 'someModule'
+        meta: { id: 'someModule' }
       };
       // act
       const result = asyncRequest('someModule');
@@ -25,7 +25,7 @@ describe('App global actions', () => {
       // arrange
       const expectedResult = {
         type: ASYNC_SUCCESS,
-        payload: 'someModule'
+        meta: { id: 'someModule' }
       };
       // act
       const result = asyncSuccess('someModule');
@@ -40,10 +40,12 @@ describe('App global actions', () => {
       const error = new Error('some error');
       const expectedResult = {
         type: ASYNC_FAIL,
-        payload: { id: 'someModule', error }
+        payload: error,
+        error: true,
+        meta: { id: 'someModule' }
       };
       // act
-      const result = asyncFail('someModule', error);
+      const result = asyncFail(error, 'someModule');
       // assert
       expect(result).toEqual(expectedResult);
     });

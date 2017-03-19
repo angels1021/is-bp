@@ -1,5 +1,4 @@
 import { conformsTo, isEmpty, isFunction, isObject, isString } from 'lodash-es';
-import { fetchAll, fetchAllCreateSaga } from 'api/fetchAll/actions';
 import { invariant, warning } from './invariant';
 import createReducer from '../store/reducers';
 
@@ -56,29 +55,18 @@ export function injectAsyncSagas(store, isValid) {
       !isEmpty(sagas),
       '(src/utils...) injectAsyncSagas: Received an empty `sagas` array'
     );
+    warning(
+      name,
+      '(src/utils...) injectAsyncSagas: Received a nameless empty `sagas` array. to skip saga caching pass name=true'
+    );
 
     if (store.asyncSagas.has(name)) return;
 
-    store.asyncSagas.add(name); // eslint-disable-line no-param-reassign
+    if (name && name !== true) {
+      store.asyncSagas.add(name);
+    }
 
     sagas.map(store.runSaga);
-  };
-}
-
-export function fetchAsyncDependencies(store, isValid) {
-  return function fetchDependencies(fetchOptions) {
-    if (!isValid) checkStore(store);
-    const { requestId } = fetchOptions;
-    invariant(
-      isString(requestId) && requestId.length,
-      '(src/utils...) fetchAll: requestId is required'
-    );
-
-    if (fetchOptions.fetchGenerator) {
-      store.dispatch(fetchAllCreateSaga(fetchOptions));
-    } else {
-      store.dispatch(fetchAll(requestId));
-    }
   };
 }
 
@@ -90,7 +78,6 @@ export function getAsyncInjectors(store) {
 
   return {
     injectReducer: injectAsyncReducer(store, true),
-    injectSagas: injectAsyncSagas(store, true),
-    fetchDependencies: fetchAsyncDependencies(store, true)
+    injectSagas: injectAsyncSagas(store, true)
   };
 }
