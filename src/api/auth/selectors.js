@@ -15,3 +15,8 @@ export const selectUserId = () => createSelector(
   selectUser(),
   (user) => user.get('id')
 );
+
+export const selectAuthenticated = () => createSelector(
+  selectAuth(),
+  (auth) => auth.get('isLoggedIn')
+);

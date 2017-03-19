@@ -1,6 +1,6 @@
 import { UserAuthWrapper } from 'redux-auth-wrapper';
 import { push } from 'react-router-redux';
-import { selectAuthenticated } from 'api/login/selectors';
+import { selectAuthenticated } from 'api/auth/selectors';
 
 // only allow authenticated users view comnponents wrapped by 'authenticatedUsers'
 export const authenticatedUsers = UserAuthWrapper({
