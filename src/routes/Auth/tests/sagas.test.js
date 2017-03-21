@@ -7,7 +7,7 @@ import { getModuleLocale } from 'api';
 import { changeLocaleSuccess, changeLocaleFail } from 'api/locale/actions';
 import { callFetchSaga } from 'api/fetchAll/sagas';
 import { AuthFetch, fetchFlow } from '../sagas';
-const { PAGE, MODULE } = { PAGE: undefined, MODULE: undefined };
+import { PAGE, MODULE } from '../auth.messages';
 
 describe('Auth module sagas', () => {
   describe('AuthFetch', () => {

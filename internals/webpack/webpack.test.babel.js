@@ -44,6 +44,17 @@ export default {
           loader: 'babel-loader'
         }
       },
+      {
+        test: /\.messages.js$/,
+        use: [
+          {
+            loader: 'messages-loader',
+            options: {
+              filter: 'id' // match production
+            }
+          }
+        ]
+      },
       { test: /\.jpe?g$|\.gif$|\.png$|\.svg$/i,
         use: { loader: 'null-loader' }
       }
