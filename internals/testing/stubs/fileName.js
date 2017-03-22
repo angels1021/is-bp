@@ -6,10 +6,10 @@
 * see https://facebook.github.io/jest/docs/webpack.html
 * */
 
-import path from 'path';
+const path = require('path');
 
-export default {
-  process(filename) {
+module.exports = {
+  process(src, filename) {
     return `module.exports = ${JSON.stringify(path.basename(filename))};`;
   }
 };

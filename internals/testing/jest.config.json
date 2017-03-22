@@ -5,8 +5,9 @@
     "\\.(css|scss)$": "identity-obj-proxy"
   },
   "transform": {
-    "^.+\\.(js|jsx)?$": "babel-jest",
-    "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mock/stubs/fileName.js"
+    "^.+\\.messages.js$": "<rootDir>/internals/testing/stubs/messages.js",
+    "^.+\\.js$": "babel-jest",
+    "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/testing/stubs/fileName.js"
   },
   "transformIgnorePatterns": [
     "/!node_modules\\/lodash-es/"

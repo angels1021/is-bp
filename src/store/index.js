@@ -5,9 +5,9 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { fromJS } from 'immutable';
 import { routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
-import authSaga, { NAME as authSagaName } from 'api/login/sagas';
+import { formActionSaga } from 'redux-form-saga';
+import logoutSaga, { NAME as logoutSagaName } from 'api/auth/sagas.logout';
 import translationsSaga, { NAME as translationsSagaName } from 'api/translations/sagas';
-import fetchAllSaga, { NAME as fetchAllSagaName } from 'api/fetchAll/sagas';
 
 import createReducer from './reducers';
 
@@ -43,9 +43,9 @@ export default function configureStore(initialState = {}, history) {
   // Extensions
   store.runSaga = sagaMiddleware.run;
   store.asyncReducers = {}; // Async reducer registry
-  store.asyncSagas = new Set([authSagaName, translationsSagaName, fetchAllSagaName]); // reference started sagas
+  store.asyncSagas = new Set([logoutSagaName, translationsSagaName]); // reference started sagas
 
-  const sagas = [authSaga, translationsSaga, fetchAllSaga];
+  const sagas = [formActionSaga, logoutSaga, translationsSaga];
   sagas.map(sagaMiddleware.run);
 
   // Make reducers hot reloadable, see http://mxs.is/googmo

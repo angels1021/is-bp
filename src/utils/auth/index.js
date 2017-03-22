@@ -1,4 +1,4 @@
-import { userLlogin, userLogout, userRegister, getUsers } from '../../api';
+import { userlogin, userLogout, userRegister, getUsers } from '../../api';
 
 /**
  * Checks if the user already has a login token.
@@ -6,55 +6,47 @@ import { userLlogin, userLogout, userRegister, getUsers } from '../../api';
 export const isLoggedIn = () => !!(localStorage.getItem('token'));
 
 /**
- * Logs the current user out
- */
-export const logout = (userId) => (
-  userLogout(userId)
-    .then((res) => {
-      const { response } = res;
-      if (response) {
-        localStorage.removeItem('token', response.token);
-      }
-      return res;
-    })
-);
+ * Set the user login token.
+ *
+ * @param {string} token;
+ * */
+export const setLoggedIn = (token) => localStorage.setItem('token', token);
+
+/**
+ * Clear the user login token.
+ * */
+export const clearLoggedIn = () => localStorage.removeItem('token');
+
+export const verifyLoggedIn = (token) => getUsers({ token })
+  .then((res) => {
+    const { response } = res;
+    const user = response && response[0];
+    if (user) {
+      return { response: user };
+    }
+    // no user with the provided token was found
+    clearLoggedIn();
+    return ({ error: new Error('user token was not found') });
+  });
 
 /**
  * logs a user In, returning a promise with `true` when done.
  *
- * @param {string} username - the entered user name
- * @param {string} password - the entered password
- * @param {string} code - the user card swipe code (optional)
+ * @param {object} formData - the login form values
+ * @param {string} formData.username - the entered user name
+ * @param {string} formData.password - the entered password
+ * @param {string} [formData.code=''] - the user card swipe code (optional)
  *
  * @return {promise}
  */
-export const login = ({ username, password, code = '' }) => { // eslint-disable-line no-unused-vars
-  if (isLoggedIn()) {
-    const token = localStorage.getItem('token');
-    return getUsers({ token })
-      .then((res) => {
-        const { response } = res;
-        const user = response && response[0];
-        if (user) {
-          return { response: user };
-        }
-        localStorage.removeItem('token');
-        return ({ error: new Error('user token was not found') });
-      });
-  }
+export const login = (formData) => userlogin(formData);
 
-  return userLlogin({ username, password, code })
-    .then((res) => {
-      const { response } = res;
-      // Save token to local storage
-      if (!response) {
-        return { error: false };
-      }
-      localStorage.setItem('token', response.token);
-      return res;
-    });
-};
-
+/**
+ * Logs the current user out
+ *
+ * @param {string} userId
+ */
+export const logout = (userId) => userLogout(userId);
 
 export const register = (username, password) => (
   userRegister({ username, password })

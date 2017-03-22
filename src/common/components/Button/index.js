@@ -25,7 +25,7 @@ const Button = ({
 /* eslint-disable react/require-default-props */
 Button.propTypes = {
   intl: intlShape.isRequired,
-  text: PropTypes.string,
+  text: PropTypes.object, // intl define messages shape
   type: PropTypes.oneOf(['button', 'submit']),
   icon: PropTypes.string, // todo create icon component
   busy: PropTypes.bool,

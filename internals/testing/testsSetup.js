@@ -3,7 +3,6 @@
 // configure jsDom
 const jsdom = require('jsdom').jsdom;
 const localStorage = require('mock-local-storage');
-
 // set globals
 const exposeProperties = ['window', 'navigator', 'document'];
 const doc = jsdom('');

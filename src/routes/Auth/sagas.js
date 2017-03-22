@@ -6,7 +6,7 @@ import { put, fork, call } from 'redux-saga/effects';
 import { getModuleLocale } from 'api';
 import { DEFAULT_LOCALE } from 'common/containers/App/constants';
 import { changeLocaleSuccess, changeLocaleFail } from 'api/locale/actions';
-import { fetchMessages } from 'api/fetchAll/utils';
+import { callFetchSaga, fetchMessages } from 'api/fetchAll/sagas';
 import { PAGE, MODULE } from './auth.messages';
 
 // act
@@ -27,11 +27,21 @@ export function* AuthFetch() {
   // call messages
   // all fetchResource calls should be forked, so they will run in parallel
   // each fetchResource saga call can throw the saga
-  yield fork(fetchMessages, () => locale, messageRequest);
+  yield [
+    fork(fetchMessages, () => locale, messageRequest)
+  ];
 }
 
+export function* fetchFlow() {
+  yield fork(callFetchSaga, {
+    requestId: `${MODULE}Module`,
+    fetchGenerator: AuthFetch
+  });
+}
+
+export default [fetchFlow];
 // options to pass to api/fetchAll
-export const fetchOptions = {
-  requestId: `${MODULE}Module`,
-  fetchGenerator: AuthFetch
-};
+// export const fetchOptions = {
+//   requestId: `${MODULE}Module`,
+//   fetchGenerator: AuthFetch
+// };

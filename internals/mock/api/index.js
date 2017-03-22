@@ -20,7 +20,8 @@ export const changeUser = (id, data) => (
   })
 );
 
-export const setUserToken = (userId, token) => changeUser(userId, { token });
+export const setUserToken = (userId, token) => changeUser(userId, { token })
+  .then((user) => ({ user, token }));
 
 export const getLocale = (locale, { module, page }) => new Promise((resolve, reject) => {
   const pageMessages = getIn(appModules, [module, page], false);

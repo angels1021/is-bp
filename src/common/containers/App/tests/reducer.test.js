@@ -40,7 +40,7 @@ describe('Global.async reducer', () => {
       // arrange
       const error = new Error('some error');
       // act
-      const result = asyncReducer(state, asyncFail(requestId, error));
+      const result = asyncReducer(state, asyncFail(error, requestId));
       // assert
       expect(result.get('loading').includes(requestId)).toBe(false);
       expect(result.get('errors').has(requestId)).toBe(true);

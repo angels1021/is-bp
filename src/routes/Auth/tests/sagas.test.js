@@ -5,9 +5,9 @@
 import { put, fork, call } from 'redux-saga/effects';
 import { getModuleLocale } from 'api';
 import { changeLocaleSuccess, changeLocaleFail } from 'api/locale/actions';
-import { fetchMessages } from 'api/fetchAll/utils';
+import { callFetchSaga } from 'api/fetchAll/sagas';
+import { AuthFetch, fetchFlow } from '../sagas';
 import { PAGE, MODULE } from '../auth.messages';
-import { AuthFetch } from '../sagas';
 
 describe('Auth module sagas', () => {
   describe('AuthFetch', () => {
@@ -46,10 +46,27 @@ describe('Auth module sagas', () => {
     it('should fork fetchResource saga with requestMessages action', () => {
       // arrange
       const messageRequest = [{ module: 'app', page: 'common' }, { module: MODULE, page: PAGE }];
-      const response = 'en';
-      const expectedResult = fork(fetchMessages, () => response, messageRequest);
       // act
       const result = localGenerator.next().value;
+      // assert
+      expect(result.length).toBe(1);
+      const first = result[0];
+      expect(first.FORK).toBeDefined();
+      expect(first.FORK.args.length).toBe(2);
+      expect(first.FORK.args[1]).toEqual(messageRequest);
+    });
+  });
+
+  describe('fetchFlow', () => {
+    it('should fork call to callFetchSaga with the correct parameters', () => {
+      // arrange
+      const Generator = fetchFlow();
+      const expectedResult = fork(callFetchSaga, {
+        requestId: `${MODULE}Module`,
+        fetchGenerator: AuthFetch
+      });
+      // act
+      const result = Generator.next().value;
       // assert
       expect(result).toEqual(expectedResult);
     });

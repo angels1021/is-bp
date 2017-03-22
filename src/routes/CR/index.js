@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router/es';
-import { logoutRequest } from 'api/login/actions';
+import { logout } from 'api/auth/actions';
+import { selectUserId } from 'api/auth/selectors';
 import './style/style.scss';
 
 class CR extends Component {
@@ -46,11 +47,11 @@ CR.defaultProps = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  logout: () => dispatch(logoutRequest())
+  logout: (userId) => dispatch(logout(userId))
 });
 
 const mapStateToProps = (state) => ({
-  userId: state.getIn(['auth', 'user', 'id'])
+  userId: selectUserId(state)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CR);
