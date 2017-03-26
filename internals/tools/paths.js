@@ -12,8 +12,9 @@ export const appSrc = resolveApp('src');
 export const appBuild = resolveApp('dist');
 export const appHTML = resolveApp('src/index.html');
 export const buildHTML = resolveApp('dist/index.html');
-export const appPackageJson = resolveApp('package.json');
+export const appPackage = resolveApp('package.json');
 export const testsSetup = resolveApp('internals/scripts/setupTests.js');
+export const dllPath = resolveApp('internals/config/dllPlugin');
 export const appNodeModules = resolveApp('node_modules');
 
 /* eslint-disable quote-props */

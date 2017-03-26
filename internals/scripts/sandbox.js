@@ -5,6 +5,8 @@
  *
  * this is not connected to the app, used for idea testing only
  */
+/* eslint-disable */
+
 import chalk from 'chalk';
 import { createFormAction } from 'redux-form-saga';
 import { createAction } from 'redux-actions';

@@ -13,7 +13,7 @@ import extractMessages from '../translations/extractMessages';
 
 const FILES_TO_PARSE = 'src/**/**.messages.js';
 const EXTRACTED_PATH = 'internals/translations/extractedMessages/extractedMessages.json';
-const MODULES_PATH   = 'internals/translations/extractedMessages/extractedModules.json';
+const MODULES_PATH = 'internals/translations/extractedMessages/extractedModules.json';
 
 const newLine = () => process.stdout.write('\n');
 
@@ -29,7 +29,7 @@ const task = (message) => {
     }
     clearTimeout(progress);
     return addCheckmark(() => newLine());
-  }
+  };
 };
 
 const glob = (pattern) => new Promise((resolve, reject) => {
@@ -53,15 +53,15 @@ const modules = {};
 
 // compile each file and add exported messages to collection
 const extractFromFile = async (fileName) => {
-  try{
-    const code = await require(path.resolve(__dirname, `../../${fileName}`));
+  try {
+    const code = await require(path.resolve(__dirname, `../../${fileName}`)); // eslint-disable-line global-require
     const fileMessages = code.default;
     const { MODULE, PAGE } = fileMessages;
     // save each file to collection to be passed down to manager
-    if(fileMessages) {
+    if (fileMessages) {
       const byId = extractMessages(fileMessages, 'message');
-      let module = modules[MODULE];
-      if(module) {
+      const module = modules[MODULE];
+      if (module) {
         const page = module[PAGE];
         module[PAGE] = !page ? byId : { ...page, ...byId };
       } else {
@@ -91,7 +91,7 @@ const extractFromFile = async (fileName) => {
 
   // save aggregated messages to file
   const saveTaskDone = task(`Writing all messages to ${EXTRACTED_PATH}`);
-  let currentMessages = "{}";
+  let currentMessages = '{}';
   try {
     currentMessages = await readFile(EXTRACTED_PATH);
     currentMessages = prettify(JSON.parse(currentMessages));
@@ -123,11 +123,11 @@ const extractFromFile = async (fileName) => {
     overrideCoreMethods: {
       provideExtractedMessages: () => messages,
       readMessageFiles: () => messages,
-      afterReporting: () =>  {
+      afterReporting: () => {
         process.exit();
       }
     }
 
   });
-})();
+}());
 

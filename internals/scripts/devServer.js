@@ -1,31 +1,30 @@
 import express from 'express';
 import path from 'path';
-import open from 'open';
+import open from 'open';  // eslint-disable-line
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../webpack/webpack.dev.babel';
-import { appSrc } from '../tools/paths';
 import { error, success } from '../tools/logger';
+import { dllPath } from '../tools/paths';
 
+/* eslint-disable no-console */
 console.log('process.env dev', process.env.NODE_ENV);
 
-let compiler = "";
 try {
-
   const app = express();
   const PORT = 3000;
 
-  //webpackConfig.output.publicPath = `http://localhost:${PORT}${webpackConfig.output.publicPath}`;
+  // webpackConfig.output.publicPath = `http://localhost:${PORT}${webpackConfig.output.publicPath}`;
 
-  compiler = webpack(webpackConfig);
+  const compiler = webpack(webpackConfig);
 
   const middleware = webpackDevMiddleware(compiler, {
     publicPath: webpackConfig.output.publicPath,
     historyApiFallback: {
       rewrites: [{
         from: /\/(\d\.)?main\.js(\.map)?/,
-        to: context => context.match[0]
+        to: (context) => context.match[0]
       }]
     },
     silent: true,
@@ -37,15 +36,21 @@ try {
 
   const fs = middleware.fileSystem;
 
+  app.get(/\.dll\.js$/, (req, res) => {
+    const filename = req.path.replace(/^\//, '');
+    res.sendFile(path.join(dllPath, filename));
+  });
+
   app.get('*', (req, res) => {
-    const filename = path.join(compiler.outputPath,'index.html');
-    fs.readFile(filename, function(err, result){
+    const filename = path.join(compiler.outputPath, 'index.html');
+    fs.readFile(filename, (err, result) => {
       if (err) {
         res.sendStatus(404);
         console.log('get error', err);
         return err;
       }
       res.send(result.toString());
+      return false;
     });
   });
 
@@ -56,6 +61,6 @@ try {
       success(`app listening on port ${PORT}`);
     }
   });
-} catch(ex) {
+} catch (ex) {
   error(ex);
 }

@@ -1,0 +1,10 @@
+{
+  "name": "pose-dlls",
+  "private": true,
+  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angels1021/is-bp.git"
+  },
+  "version": "1.0.0"
+}

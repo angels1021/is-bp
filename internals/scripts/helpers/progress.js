@@ -9,11 +9,11 @@ import chalk from 'chalk';
  */
 export default function animateProgress(message, amountOfDots) {
   if (typeof amountOfDots !== 'number') {
-    amountOfDots = 3;
+    amountOfDots = 3; // eslint-disable-line no-param-reassign
   }
 
   let i = 0;
-  return setInterval(function() {
+  return setInterval(() => {
     readline.cursorTo(process.stdout, 0);
     i = (i + 1) % (amountOfDots + 1);
     const dots = new Array(i + 1).join('.');
