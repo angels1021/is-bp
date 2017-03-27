@@ -3,23 +3,21 @@ import React from 'react';
 import Form from './components/Form';
 import './style/style.scss';
 
-const grayscale = {
-  'light-gray': '#e6e6e6',
-  'medium-gray': '#cacaca',
-  'dark-gray': '#464a4c'
-};
+const palette = [
+  'primary',
+  'secondary',
+  'success',
+  'warning',
+  'alert',
+  'info',
+  'text'
+];
 
-const palette = {
-  primary: '#a0f',
-  secondary: '#03a9f4',
-  success: '#47cf73',
-  warning: '#fcd000',
-  alert: '#ff3c41',
-  info: '#76daff',
-  text: grayscale['dark-gray']
-};
-
-const allColors = Object.assign({}, palette, grayscale);
+const shades = [
+  'primary',
+  'secondary',
+  'gray'
+];
 
 const Sample = () => (
   <div>
@@ -304,14 +302,48 @@ const Sample = () => (
               color variable you can change at any time in`} <code>_settings.scss</code>
             </p>
             <hr />
-            <div className="row up-1 medium-up-3 large-up-5">
-              { Object.keys(allColors).map((color) =>
+            <div className="row up-1 medium-up-3 large-up-4">
+              { palette.map((color) =>
                 (
-                  <div className="column">
+                  <div className="column" key={color}>
                     <h5>{color}</h5>
                     <div className="color-block">
-                      <span style={{ background: allColors[color] }}></span>
-                      { allColors[color] }
+                      <span className={`button ${color}`}>Text</span>
+                    </div>
+                  </div>
+                )
+              ) }
+            </div>
+          </section>
+          <section className="ss-section" id="shades">
+            <h1>Shades</h1>
+            <p className="lead">
+              {`Below you can find the different shades we created that support the primary secondary and gray colors.
+              all colors are normalized as light, normal, dark.
+              the required shade can be set through the function`} <code>get-shade(color, shade)</code>
+            </p>
+            <hr />
+            <div className="row">
+              { shades.map((color) =>
+                (
+                  <div className="row up-1 medium-up-3 small-12" key={color}>
+                    <div className="column">
+                      <h5>{`${color}-bg-light`}</h5>
+                      <div className="color-block">
+                        <span className={`${color}-bg-light`}></span>
+                      </div>
+                    </div>
+                    <div className="column">
+                      <h5>{`${color}-bg`}</h5>
+                      <div className="color-block">
+                        <span className={`${color}-bg`}></span>
+                      </div>
+                    </div>
+                    <div className="column">
+                      <h5>{`${color}-bg-dark`}</h5>
+                      <div className="color-block">
+                        <span className={`${color}-bg-dark`}></span>
+                      </div>
                     </div>
                   </div>
                 )

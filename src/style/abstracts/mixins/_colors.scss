@@ -1,0 +1,28 @@
+$-main-colors-: (primary, secondary, gray);
+$-class-map-: (bg: background-color, text: color);
+$-shades-: (dark, light);
+
+@mixin add-shade($color: null) {
+  @if map-has-key($foundation-palette, $color) {
+    @each $prefix, $prop in $-class-map- {
+      .#{$color}-#{$prefix} {
+        #{$prop}: get-shade($color, normal);
+      }
+      @for $i from 1 through length($-shades-) {
+        .#{$color}-#{$prefix}-#{nth($-shades-, $i)} {
+          #{$prop}: get-shade($color, nth($-shades-, $i));
+        }
+      }
+    }
+    
+  }
+  @else {
+    @error 'color #{$color} not found in palette';
+  }
+}
+
+@mixin pose-shades() {
+  @for $i from 1 through length($-main-colors-) {
+    @include add-shade(nth($-main-colors-, $i));
+  }
+}

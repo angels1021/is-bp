@@ -1,0 +1,19 @@
+// get light, normal or dark shades of any color in palette
+@function get-shade($color: primary, $type: normal) {
+  $shade: get-color(primary);
+  @if not (map-has-key($foundation-palette, $color)) {
+    @warn 'color #{$color} not found in palette';
+    $color: primary;
+  }
+  @if ($type == dark) {
+    $shade: scale-color(get-color($color), $lightness: -40%);
+  }
+  @else if ($type == light) {
+    $shade: scale-color(get-color($color), $lightness: 60%);
+  }
+  @else {
+    $shade: get-color($color);
+  }
+  
+  @return $shade;
+}

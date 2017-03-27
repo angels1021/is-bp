@@ -1,17 +1,15 @@
-@import "../common";
-
 .button {
   outline: none;
 
   &.link {
-    color: $primary-color;
+    color: $anchor-color;
     background: transparent;
     text-decoration: underline;
 
     &:hover,
     &:focus {
       background: transparent;
-      color: $primary-color;
+      color: $anchor-color-hover;
     }
   }
 }

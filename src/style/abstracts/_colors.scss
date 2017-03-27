@@ -3,35 +3,45 @@
 // Start with assigning color names to specific hex values.
 $white:  #fff;
 $black:  #000;
-$red:    #ff3c41;
-$orange: #f0ad4e;
-$yellow: #fcd000;
-$green:  #47cf73;
-$blue:   #03a9f4;
-$teal:   #00bcd4;
-$pink:   #ff5b77;
-$purple: #a0f;
-$light-blue: #76daff;
+$gray:   #bdbdbd;
+$red:    #f44336;
+$orange: #ef6c00;
+$yellow: #ffeb3b;
+$green:  #43a047;
+$blue:   #2196f3;
+$indigo: #3f51b5;
+$cyan:   #0097a7;
+$pink:   #e91e63;
+$purple: #673ab7;
+$purple-dark: #311b92;
 
 // Create grayscale
-$light-gray: #e6e6e6;
-$medium-gray: #cacaca;
-$dark-gray: #7d7d7d;
+//$light-gray: #e0e0e0;
+//$medium-gray: #bdbdbd;
+//$dark-gray: #727272;
 
 // Reassign color vars to semantic color scheme
-//overwrite foundation
+// overwrite foundation
 $foundation-palette: (
   primary: $purple,
-  secondary: $blue,
+  secondary: #bfe5f0,
   success: $green,
-  warning: $yellow,
+  warning: $orange,
   alert: $red,
-  info: $light-blue,
-  text: $dark-gray
+  info: $blue,
+  text: rgba($black, 0.54), // text is sharper as black with alpha rather than gray,
+  gray: $gray
+);
+
+$base-palette: map-remove(
+  $foundation-palette,
+  (
+    gray
+  )
 );
 
 //create $primary-color, $secondary-color
-@include add-foundation-colors;
+//@include add-foundation-colors;
 
 $body-background: $white;
 $body-font-color: get-color(text);

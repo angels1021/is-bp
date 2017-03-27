@@ -1,0 +1,30 @@
+// overwriting foundation's original function as it was using the highest contrasted color
+// even if original selection's contrast was good.
+/// Checks the luminance of `$base`, and returns the color from `$colors` (list of colors) that has the most contrast.
+///
+/// @param {Color} $color1 - First color to compare.
+/// @param {Color} $color2 - Second color to compare.
+///
+/// @returns {Number} The contrast ratio of the compared colors.
+@function color-pick-contrast($base, $colors: ($white, $black), $tolerance: 0) {
+  $contrast: color-contrast($base, nth($colors, 1));
+  $best: nth($colors, 1);
+  
+  @if ($contrast < 3) { // added check
+    @for $i from 2 through length($colors) {
+      $current-contrast: color-contrast($base, nth($colors, $i));
+      
+      @if ($current-contrast - $contrast > $tolerance) {
+        $contrast: color-contrast($base, nth($colors, $i));
+        $best: nth($colors, $i);
+      }
+    }
+  }
+  
+  @if ($contrast < 3) {
+    // if after alt check contrast is still bad
+    @warn "Contrast ratio of #{$best} on #{$base} is pretty bad, just #{$contrast}";
+  }
+  
+  @return $best;
+}

@@ -135,64 +135,55 @@ As you've probably noticed in the examples above, you have access to a small, me
   <div class="column">
     <h3>Primary</h3>
     <div class="color-block">
-      <span style="background: #a0f"></span>
-      #a0f
+      <span class="primary"></span>
     </div>
   </div>
   <div class="column">
-    <h3>Seccondary</h3>
+    <h3>Secondary</h3>
     <div class="color-block">
-      <span style="background: #03a9f4"></span>
-      #03a9f4
+      <span class="secondary"></span>
     </div>
   </div>
   <div class="column">
     <h3>Success</h3>
     <div class="color-block">
-      <span style="background: #47cf73"></span>
-      #47cf73
+      <span class="success"></span>
     </div>
   </div>
   <div class="column">
     <h3>Warning</h3>
     <div class="color-block">
-      <span style="background: #fcd000"></span>
-      #fcd000
+      <span class="warning" ></span>
     </div>
   </div>
   <div class="column">
     <h3>Alert</h3>
     <div class="color-block">
-      <span style="background: #ff3c41"></span>
-      #ff3c41
+      <span class="alert"></span>
     </div>
   </div>
   <div class="column">
     <h3>Info</h3>
     <div class="color-block">
-      <span style="background: #76daff"></span>
-      #76daff
+      <span class="info"></span>
     </div>
   </div>
   <div class="column">
     <h3>Light gray</h3>
     <div class="color-block">
-      <span style="background: #e6e6e6"></span>
-      #e6e6e6
+      <span class="light-gray"></span>
     </div>
   </div>
   <div class="column">
     <h3>Medium gray</h3>
     <div class="color-block">
-      <span style="background: #cacaca"></span>
-      #cacaca
+      <span class="medium-gray"></span>
     </div>
   </div>
   <div class="column">
     <h3>Dark gray</h3><span>(text color)</span>
     <div class="color-block">
-      <span style="background: #464a4c"></span>
-      #464a4c
+      <span class="dark-gray"></span>
     </div>
   </div>
 </div>

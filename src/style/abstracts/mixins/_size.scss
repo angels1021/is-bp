@@ -6,3 +6,16 @@
   width: $width;
   height: $height;
 }
+
+@mixin circle($size) {
+  @include size($size);
+  border-radius: 50%;
+}
+
+@mixin rounded($width, $height:null) {
+  @if ($height = null) {
+    $height: $width;
+  }
+  @include size($width, $height);
+  border-radius: $height/2;
+}
