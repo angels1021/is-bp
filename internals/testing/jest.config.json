@@ -1,6 +1,8 @@
 {
   "verbose":true,
   "setupFiles": ["<rootDir>/internals/testing/testsSetup.js"],
+  "coverageDirectory": "<rootDir>/coverage",
+  "collectCoverageFrom" : ["src/**/*.js", "!**/*.messages.js"],
   "moduleNameMapper": {
     "\\.(css|scss)$": "identity-obj-proxy"
   },

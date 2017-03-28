@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+- 7
+script: npm run build
+install:
+- npm i -g npm@latest
+- npm install
+before_install:
+- export CHROME_BIN=chromium-browser
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+notifications:
+  slack:
+    secure: usM84s7qNO8NAuMBK1SRyt8+xsMKJE9l2k0B/7yee/yjKsO0sALxJRzGF+Hvpd4G9V+8MDE/MUIb/xVpGj7Gricxv/MIkuafxvdNkvXoj2/qFk85OrfdvWDIGczFVmmIma4WkMB7M/r3XS1XsG+a813eKo3oVUmp81iiWaPtCmuVNLkg5prQ+5nZ0HEhFltomnU3cIR9WCh3CNf0wjGUPonQOGhdqAx0+WYw7DfBXi5RTIj+qihv3CdnqS4R3Y+N29Gvs27W/N4rsM3S37vS+lnCtJD5X+PM4B3O73ul+QmSOL1bmhSZes85ilTxeCLJvnaYyNkdOrPhfk66+3Cg3ff01GKTQRjOQsb5+t9oSCLyHCpzUfTM716l5+ZSsOpFtZyYaFWdTHksKBtEvGOmPYEOqN3vSqD9wFKDsNcYurHEdb2lRwStgnUc2PYtu9y/SiKWzIbuHV6zjO6+gs4TEPMfb2ia4zNyVuBDLrBuvKbaYLzanYqGdabwNvKc6kT8BzKTeYFB4hfA7g3Z9MsdJ9trOq932udFyhrj7mkRdzVyDWBaIXmRswHy8tUqSKO9+w33DXq30jJZKdlZHvshxJYSJmAdjoVTjziEqg+NXjjOBc0jguvvFRVLNwJupozEDjhUUWcCPuddMkWK2g4A1p/FOA7oKcTm43MlHRP+Hag=
+    on_success: change
+    on_failure: always
+
+after_success: npm run coverage
+cache:
+  directories:
+  - node_modules

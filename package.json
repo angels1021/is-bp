@@ -17,21 +17,23 @@
     "lint:fix-css": "stylefmt --config .stylelintrc.json  src/**/*.scss",
     "test": "cross-env NODE_ENV='test' jest --config internals/testing/jest.config.json",
     "test:watch": "npm test -- --watch",
+    "test:commit": "npm test -- -o",
     "clean:dist": "npm run remove-dist && mkdir dist",
     "prestart-mockapi": "babel-node internals/mock/generateMockData",
     "start-mockapi": "babel-node internals/mock/jsonServer --watch",
     "remove-dist": "node_modules/.bin/rimraf ./dist",
     "manage:translations": "babel-node internals/scripts/manageTranslations",
-    "prebuild": "npm-run-all clean:dist test lint",
     "build:dll": "babel-node internals/scripts/dependencies.js",
+    "prebuild": "npm-run-all clean:dist test lint",
     "build": "cross-env NODE_ENV='production' babel-node internals/scripts/build.js",
+    "coverage": "npm test -- --coverage",
     "sandbox": "babel-node internals/scripts/sandbox"
   },
   "lint-staged": {
     "*.js": "lint:eslint",
     "*.scss": "lint:stylelint"
   },
-  "pre-commit": "lint:staged",
+  "pre-commit": ["lint:staged", "test:commit"],
   "browserslist": [
     "> 1%",
     "last 2 version",

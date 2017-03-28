@@ -11,7 +11,6 @@ import chalk from 'chalk';
 import { createFormAction } from 'redux-form-saga';
 import { createAction } from 'redux-actions';
 
-
 const noop = () => {};
 const ex = new Error('la');
 const REQUEST = 'path/REQUEST';
