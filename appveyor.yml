@@ -43,7 +43,7 @@ cache:
   - node_modules -> package.json
 
 notifications:
-  - provider: slack
+  - provider: Slack
     incoming_webhook:
       secure: MSqsDPNe8vFbSUgpanQssNkxPI/5bsVOV2QX4Xg5XZ6vfVKoWBwzZ+4WXGdgjw5hbVihM9OC8jfBtuzxzr+UZ/xvI+u2ITM1IyocX4tUfL4=
     on_build_success: true
